@@ -2,9 +2,9 @@ import ReactDOM from 'react-dom';
 import React, { Component } from 'react'
 import { Grid, Divider } from 'semantic-ui-react'
 
-// import SearchPanes from './components/search_panes'
 import VerticalBar from './components/vertical_bar'
 import Predictions from './components/predictions'
+import SearchPanes from './components/search_panes'
 
 class App extends Component {
 
@@ -27,6 +27,7 @@ class App extends Component {
           <Grid.Column width={7}>
             <Predictions />
               <Divider />
+            <SearchPanes />
           </Grid.Column>
       </Grid>
     )
