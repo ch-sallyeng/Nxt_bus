@@ -1,8 +1,17 @@
 const express = require('express'),
   router = express.Router();
 
+const apiHelpers = require('../api_helpers');
+
 router.get('/', (req, res) => {
-  res.send('whats good');
+  apiHelpers.getStops(req, res)
+    .then(onlyBusesArray => {
+      res.sendStatus();
+    })
+    .catch(err => {
+      console.log(`ERROR with return object from getBuses apiHelpers: ${err}`);
+    });
+
 });
 
 
