@@ -36,10 +36,14 @@ class NewSearch extends Component {
   }
 
   componentWillMount() {
-
+    this.getBuses();
   }
 
   getBuses() {
+    axios.get('/buses')
+      .then(res => {
+        console.log('returned from server /buses', res);
+      })
 
   }
 

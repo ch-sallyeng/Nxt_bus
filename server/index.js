@@ -7,14 +7,17 @@ const app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
 
-router.all('/', (req, res, next) => {
-  console.log('Someone made a request!');
-  next();
-});
+// router.all('/', (req, res, next) => {
+//   console.log('Someone made a request!');
+//   next();
+// });
 
-router.get('/', (req, res) => {
-  res.send('Hello World');
-});
+// router.get('/', (req, res) => {
+//   res.send('Hello World');
+// });
+
+app.use('/buses', require('./routes/buses'));
+
 
 /******************* END: REQUEST HANDLERS **********************/
 
