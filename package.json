@@ -1,0 +1,31 @@
+{
+  "name": "nxt_bus",
+  "version": "1.0.0",
+  "description": "Get SF MUNI next bus arrival times for any stop either through a new search or selecting from past searches",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "react-dev": "webpack-dev-server --content-base dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sallyyeng/nxt_bus.git"
+  },
+  "author": "Sally Eng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sallyyeng/nxt_bus/issues"
+  },
+  "homepage": "https://github.com/sallyyeng/nxt_bus#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}
