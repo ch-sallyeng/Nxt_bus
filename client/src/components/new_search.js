@@ -28,7 +28,7 @@ class NewSearch extends Component {
     this.getBuses();
   }
 
-  makeSemanticOptions (array) {
+  makeSemanticOptions(array) {
     return array.map(elem => {
       return {
         'key': elem,
@@ -56,7 +56,6 @@ class NewSearch extends Component {
       }
     })
     .then((response) => {
-      console.log('successful post request /stops');
       this.setState({
         stops: this.makeSemanticOptions(response.data[0]),
         stopsIds: this.makeSemanticOptions(response.data[1])
@@ -66,6 +65,29 @@ class NewSearch extends Component {
       console.error('unsuccessful getStops req: ', error);
     });
   }
+
+  getPredictions() {
+    console.log('inside get predictions')
+    axios.get('/predictions', {
+      params: {
+        name: this.state.name,
+        busLine: this.state.busSelection,
+        busStopId: this.state.busStopId,
+        busStop: this.state.busStop,
+        direction: this.state.direction,
+      }
+    })
+    .then((response) => {
+      console.log('successful get request /predictions');
+      console.log('RETURNED from getPredictions: ', response.data);
+
+      this.setState({predictions: response.data.slice(0,3)})
+    })
+    .catch((error) => {
+      console.error('unsuccessful getPredictions req: ', error);
+    });
+  }
+
 
   render() {
     const { directions, direction, buses, stops } = this.state
@@ -102,7 +124,10 @@ class NewSearch extends Component {
             placeholder='Stop'
             options={stops}
             />
-          <Button type='submit'>Get Predictions!</Button>
+          <Button
+            type='submit'
+            onClick={}
+          >Get Predictions!</Button>
         </Form>
       </div>
     )
@@ -110,23 +135,4 @@ class NewSearch extends Component {
 }
 
 export default NewSearch;
-
-// {predictions.map(prediction => (
-//   <Statistic color='orange'>
-//     <Statistic.Value>{prediction}</Statistic.Value>
-//     <Statistic.Label>Minutes</Statistic.Label>
-//   </Statistic>
-// ))}
-// directions: [
-//   {
-//     key: 'Inbound',
-//     text: 'Inbound',
-//     value: 'Inbound',
-//   },
-//   {
-//     key: 'Outbound',
-//     text: 'Outbound',
-//     value: 'Outbound',
-//   }
-// ],
 
