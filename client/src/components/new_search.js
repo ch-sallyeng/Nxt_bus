@@ -9,7 +9,7 @@ class NewSearch extends Component {
     this.state = {
       name: '',
       direction: '',
-      busNum: '',
+      busSelection: '',
       busStop: '',
       busStopId: '',
 
@@ -49,7 +49,20 @@ class NewSearch extends Component {
   }
 
   getStops() {
-    console.log('inside get stops');
+    axios.post('/stops', {
+      busSelection: this.state.busSelection,
+      direction: this.state.direction,
+    })
+    .then((response) => {
+      console.log('successful post request /stops');
+      this.setState({
+        stops: response.data[0],
+        stopsIds: response.data[1]
+      });
+    })
+    .catch((error) => {
+      console.error('unsuccessful getStops req: ', error);
+    });
   }
 
   render() {
@@ -78,7 +91,7 @@ class NewSearch extends Component {
             label='Bus Number'
             placeholder='Bus Number'
             options={buses}
-            onChange={(e, { value }) => this.setState({ busNum: value}, this.getStops)}
+            onChange={(e, { value }) => this.setState({ busSelection: value}, this.getStops)}
             />
           <Form.Dropdown
             fluid
