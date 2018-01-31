@@ -23,6 +23,11 @@ class NewSearch extends Component {
       pastSearches: [],
     }
 
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onDirectionSelection = this.onDirectionSelection.bind(this);
+    this.onBusSelection = this.onBusSelection.bind(this);
+    this.onStopSelection = this.onStopSelection.bind(this);
+
     this.getStops = this.getStops.bind(this);
     this.getBuses = this.getBuses.bind(this);
     this.getPredictions = this.getPredictions.bind(this);
@@ -32,24 +37,26 @@ class NewSearch extends Component {
     this.getBuses();
   }
 
-  makeSemanticOptions(array) {
-    return array.map(elem => {
-      return {
-        'key': elem,
-        'text': elem,
-        'value': elem,
-      }
-    })
+  onNameChange(event) { this.setState({ name: event.target.value})}
+
+  onDirectionSelection(e, { value }) {this.setState({ direction: value})}
+
+  onBusSelection = (e, { value }) => this.setState({ busSelection: value}, this.getStops)
+
+  onStopSelection(e, { value }) {
+    this.setState({busStop: value})
+    const stopIndex = this.state.stops.indexOf(value)
+    this.setState({busStopId: this.state.stopsIdArr[stopIndex]});
   }
 
   getBuses() {
     axios.get('/buses')
-      .then(res => {
-        this.setState({buses: this.makeSemanticOptions(res.data).sort()})
-      })
-      .catch(err => {
-        console.error('unsuccessful getBuses req: ', error);
-      })
+    .then(res => {
+      this.setState({buses: this.makeSemanticOptions(res.data).sort()})
+    })
+    .catch(err => {
+      console.error('unsuccessful getBuses req: ', error);
+    })
   }
 
   getStops() {
@@ -73,15 +80,14 @@ class NewSearch extends Component {
 
   getPredictions() {
     console.log('inside get predictions')
-
-    // const { name, busSelection, busStopId, busStop, direction } = this.state
+    const { name, busSelection, busStopId, busStop, direction } = this.state
     axios.get('/predictions', {
       params: {
-        name: this.state.name,
-        busSelection: this.state.busSelection,
-        busStopId: this.state.busStopId,
-        busStop: this.state.busStop,
-        direction: this.state.direction,
+        name: name,
+        busSelection: busSelection,
+        busStopId: busStopId,
+        busStop: busStop,
+        direction: direction,
       }
     })
     .then((res) => {
@@ -95,6 +101,15 @@ class NewSearch extends Component {
     });
   }
 
+  makeSemanticOptions(array) {
+    return array.map(elem => {
+      return {
+        'key': elem,
+        'text': elem,
+        'value': elem,
+      }
+    })
+  }
 
   render() {
     const { directions, direction, buses, stops } = this.state
@@ -106,7 +121,7 @@ class NewSearch extends Component {
           <Form.Input
             label='Name'
             placeholder='Name'
-            onChange={event => this.setState({ name: event.target.value})}
+            onChange={onNameChange}
             />
           <Form.Dropdown
             fluid
@@ -114,7 +129,7 @@ class NewSearch extends Component {
             label='Direction'
             placeholder='Direction'
             options={directions}
-            onChange={(e, { value }) => this.setState({ direction: value})}
+            onChange={onDirectionSelection}
             />
           <Form.Dropdown
             fluid
@@ -122,7 +137,7 @@ class NewSearch extends Component {
             label='Bus Number'
             placeholder='Bus Number'
             options={buses}
-            onChange={(e, { value }) => this.setState({ busSelection: value}, this.getStops)}
+            onChange={onBusSelection}
             />
           <Form.Dropdown
             fluid
@@ -130,9 +145,9 @@ class NewSearch extends Component {
             label='Stop'
             placeholder='Stop'
             options={stops}
+            onChange={onStopSelection}
             />
           <Button
-            onClick={this.getPredictions}
             >Get Predictions!</Button>
         </Form>
       </div>
