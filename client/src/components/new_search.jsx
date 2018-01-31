@@ -18,9 +18,6 @@ class NewSearch extends Component {
       buses: [],
       stops: [],
       stopsIds: [],
-
-      predictions: [],
-      pastSearches: [],
     }
 
     this.onNameChange = this.onNameChange.bind(this);
@@ -45,8 +42,6 @@ class NewSearch extends Component {
 
   onStopSelection(e, { value }) {
     const { stops, stopsIds } = this.state
-    console.log(value);
-    console.log(stopsIds[stops.indexOf(value)]);
     this.setState({
       busStop: value,
       busStopId: stopsIds[stops.indexOf(value)]
@@ -64,7 +59,6 @@ class NewSearch extends Component {
   }
 
   getStops() {
-    console.log(this.state);
     axios.get('/stops', {
       params: {
         busSelection: this.state.busSelection,
@@ -94,6 +88,7 @@ class NewSearch extends Component {
       }
     })
     .then((res) => {
+      console.log(res.data.slice(0,3))
       this.setState({predictions: res.data.slice(0,3)})
     })
     .catch((error) => {

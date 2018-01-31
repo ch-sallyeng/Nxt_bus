@@ -6,7 +6,7 @@ const PastSearch = () => (
     <div><h1>Past Searches</h1></div>
     <br />
     <Form>
-      <Input action='Search' placeholder='Enter name...' />
+      <Form.Input action='Search' placeholder='Enter name...' />
     </Form>
   </div>
 )
