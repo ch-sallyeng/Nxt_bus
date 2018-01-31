@@ -22,6 +22,7 @@ router.get('/', (req, res) => {
 
 app.use('/buses', require('./routes/buses'));
 app.use('/stops', require('./routes/stops'));
+app.use('/predictions', require('./routes/predictions'));
 
 
 /******************* END: REQUEST HANDLERS **********************/

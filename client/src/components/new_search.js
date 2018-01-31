@@ -55,10 +55,10 @@ class NewSearch extends Component {
         direction: this.state.direction
       }
     })
-    .then((response) => {
+    .then((res) => {
       this.setState({
-        stops: this.makeSemanticOptions(response.data[0]),
-        stopsIds: this.makeSemanticOptions(response.data[1])
+        stops: this.makeSemanticOptions(res.data[0]),
+        stopsIds: this.makeSemanticOptions(res.data[1])
       });
     })
     .catch((error) => {
@@ -71,17 +71,17 @@ class NewSearch extends Component {
     axios.get('/predictions', {
       params: {
         name: this.state.name,
-        busLine: this.state.busSelection,
+        busSelection: this.state.busSelection,
         busStopId: this.state.busStopId,
         busStop: this.state.busStop,
         direction: this.state.direction,
       }
     })
-    .then((response) => {
+    .then((res) => {
       console.log('successful get request /predictions');
-      console.log('RETURNED from getPredictions: ', response.data);
+      console.log('RETURNED from getPredictions: ', res.data);
 
-      this.setState({predictions: response.data.slice(0,3)})
+      this.setState({predictions: res.data.slice(0,3)})
     })
     .catch((error) => {
       console.error('unsuccessful getPredictions req: ', error);
@@ -126,7 +126,7 @@ class NewSearch extends Component {
             />
           <Button
             type='submit'
-            onClick={}
+            onClick={this.getPredictions}
           >Get Predictions!</Button>
         </Form>
       </div>
