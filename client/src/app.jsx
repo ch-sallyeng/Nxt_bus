@@ -13,11 +13,13 @@ class App extends Component {
     this.state = {
       predictions: []
     }
-    this.setPredictions = this.setPredictions.bind(this);
   }
 
-  setPredictions() {
-
+  setPredictions = (predictions) => {
+    console.log('this is predictions inside app.jsx: ', predictions);
+    this.setState({
+      predictions: predictions
+    })
   }
 
   render() {
@@ -37,9 +39,12 @@ class App extends Component {
           </Grid.Column>
 
           <Grid.Column width={7}>
-            <Predictions />
+            <Predictions
+            />
               <Divider />
-            <SearchPanes />
+            <SearchPanes
+              setPredictions={this.setPredictions}
+            />
           </Grid.Column>
       </Grid>
     )

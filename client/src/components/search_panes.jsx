@@ -7,20 +7,16 @@ import PastSearch from './past_searches.jsx'
 class SearchPanes extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      predictions: [],
-    }
   }
 
   render() {
-    const { predictions } = this.state;
+    const { setPredictions } = this.props;
 
     const panes = [
       { menuItem: 'New Search', render: () =>
         <Tab.Pane attached={false}>
           <NewSearch
-            predictions={predictions}
+            setPredictions={setPredictions}
           />
         </Tab.Pane>},
       { menuItem: 'Past Searches', render: () =>

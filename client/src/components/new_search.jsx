@@ -70,6 +70,7 @@ class NewSearch extends Component {
   getPredictions = () => {
     const { name, busSelection, busStopId, busStop, direction } = this.state
     const { setPredictions } = this.props
+
     axios.get('/predictions', {
       params: {
         name: name,
@@ -81,7 +82,7 @@ class NewSearch extends Component {
     })
     .then((res) => {
       console.log(res.data.slice(0,3))
-      setPredictions()
+      setPredictions(res.data.slice(0,3))
     })
     .catch((error) => {
       console.error('unsuccessful getPredictions req: ', error);
@@ -100,6 +101,7 @@ class NewSearch extends Component {
 
   render = () => {
     const { directions, direction, buses, stops } = this.state
+
     return (
       <div>
         <div><h1>New Search</h1></div>
