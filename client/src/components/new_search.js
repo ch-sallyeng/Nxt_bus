@@ -9,7 +9,7 @@ class NewSearch extends Component {
     this.state = {
       name: '',
       direction: '',
-      busLine: '',
+      busNum: '',
       busStop: '',
       busStopId: '',
 
@@ -46,34 +46,46 @@ class NewSearch extends Component {
       .catch(err => {
         console.error('unsuccessful getBuses req: ', error);
       })
+  }
 
+  getStops() {
+    console.log('inside get stops');
   }
 
   render() {
-    const { directions, buses } = this.state
+    const { directions, direction, buses } = this.state
     return (
       <div>
         <div><h1>New Search</h1></div>
         <br />
         <Form>
           <Form.Input
-            onChange={event => this.setState({ term: event.target.value})}
             label='Name'
-            placeholder='Name' />
+            placeholder='Name'
+            onChange={event => this.setState({ name: event.target.value})}
+            />
           <Form.Dropdown
             fluid
             selection
             label='Direction'
             placeholder='Direction'
             options={directions}
+            onChange={(e, { value }) => this.setState({ direction: value})}
             />
           <Form.Dropdown
             fluid
             selection
             label='Bus Number'
             placeholder='Bus Number'
-            options={buses} />
-          <Form.Dropdown fluid selection label='Stop' placeholder='Stop' />
+            options={buses}
+            onChange={(e, { value }) => this.setState({ busNum: value}, this.getStops)}
+            />
+          <Form.Dropdown
+            fluid
+            selection
+            label='Stop'
+            placeholder='Stop'
+            />
           <Button type='submit'>Get Predictions!</Button>
         </Form>
       </div>
@@ -89,16 +101,16 @@ export default NewSearch;
 //     <Statistic.Label>Minutes</Statistic.Label>
 //   </Statistic>
 // ))}
-
-// [
+// directions: [
 //   {
-//     'key': 'Inbound',
-//     'text': 'Inbound',
-//     'value': 'Inbound',
+//     key: 'Inbound',
+//     text: 'Inbound',
+//     value: 'Inbound',
 //   },
 //   {
-//     'key': 'Outbound',
-//     'text': 'Outbound',
-//     'value': 'Outbound',
+//     key: 'Outbound',
+//     text: 'Outbound',
+//     value: 'Outbound',
 //   }
-// ]
+// ],
+
