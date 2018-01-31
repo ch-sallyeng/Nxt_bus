@@ -22,6 +22,10 @@ class NewSearch extends Component {
       predictions: [],
       pastSearches: [],
     }
+
+    this.getStops = this.getStops.bind(this);
+    this.getBuses = this.getBuses.bind(this);
+    this.getPredictions = this.getPredictions.bind(this);
   }
 
   componentWillMount() {
@@ -49,6 +53,7 @@ class NewSearch extends Component {
   }
 
   getStops() {
+    console.log(this.state);
     axios.get('/stops', {
       params: {
         busSelection: this.state.busSelection,
@@ -68,6 +73,8 @@ class NewSearch extends Component {
 
   getPredictions() {
     console.log('inside get predictions')
+
+    // const { name, busSelection, busStopId, busStop, direction } = this.state
     axios.get('/predictions', {
       params: {
         name: this.state.name,
@@ -125,9 +132,8 @@ class NewSearch extends Component {
             options={stops}
             />
           <Button
-            type='submit'
             onClick={this.getPredictions}
-          >Get Predictions!</Button>
+            >Get Predictions!</Button>
         </Form>
       </div>
     )

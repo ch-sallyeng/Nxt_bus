@@ -71,3 +71,4 @@ const getPredictions = (req) => {
 
 module.exports.getBuses = getBuses;
 module.exports.getStops = getStops;
+module.exports.getPredictions = getPredictions;

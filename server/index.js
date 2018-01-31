@@ -27,7 +27,7 @@ app.use('/predictions', require('./routes/predictions'));
 
 /******************* END: REQUEST HANDLERS **********************/
 
-const serverPort = 3000;
+const serverPort = 3002;
 const apiPort = 3001;
 
 app.listen(serverPort, function() {
