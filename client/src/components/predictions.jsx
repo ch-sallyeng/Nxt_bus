@@ -1,34 +1,18 @@
 import React from 'react'
 import { Statistic, Label } from 'semantic-ui-react'
 
-const predictions = [];
-
-const Predictions = () => (
+const Predictions = ({ predictions }) => (
   <div>
       <div><h2>Next Bus coming in...</h2></div>
       <div>
       <br />
         <Statistic.Group widths='four'>
-          <Statistic color='orange'>
-          <Statistic.Value>9</Statistic.Value>
-          <Statistic.Label>Minutes</Statistic.Label>
-          </Statistic>
-
-          <Statistic color='orange'>
-          <Statistic.Value>13</Statistic.Value>
-          <Statistic.Label>Minutes</Statistic.Label>
-          </Statistic>
-
-          <Statistic color='orange'>
-          <Statistic.Value>18</Statistic.Value>
-          <Statistic.Label>Minutes</Statistic.Label>
-          </Statistic>
-
-          <Statistic color='orange'>
-          <Statistic.Value>22</Statistic.Value>
-          <Statistic.Label>Minutes</Statistic.Label>
-          </Statistic>
-
+          {predictions.map(prediction => (
+            <Statistic color='orange'>
+              <Statistic.Value>{prediction}</Statistic.Value>
+              <Statistic.Label>Minutes</Statistic.Label>
+            </Statistic>
+          ))}
         </Statistic.Group>
       </div>
       <br />
@@ -46,10 +30,22 @@ export default Predictions
 
 
 
+// <Statistic color='orange'>
+// <Statistic.Value>9</Statistic.Value>
+// <Statistic.Label>Minutes</Statistic.Label>
+// </Statistic>
 
-// {predictions.map(prediction => (
-//   <Statistic color='orange'>
-//     <Statistic.Value>{prediction}</Statistic.Value>
-//     <Statistic.Label>Minutes</Statistic.Label>
-//   </Statistic>
-// ))}
+// <Statistic color='orange'>
+// <Statistic.Value>13</Statistic.Value>
+// <Statistic.Label>Minutes</Statistic.Label>
+// </Statistic>
+
+// <Statistic color='orange'>
+// <Statistic.Value>18</Statistic.Value>
+// <Statistic.Label>Minutes</Statistic.Label>
+// </Statistic>
+
+// <Statistic color='orange'>
+// <Statistic.Value>22</Statistic.Value>
+// <Statistic.Label>Minutes</Statistic.Label>
+// </Statistic>

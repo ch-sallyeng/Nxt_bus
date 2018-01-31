@@ -32,6 +32,8 @@ class App extends Component {
       }
     }
 
+    const { predictions } = this.state;
+
     return (
       <Grid padded='vertically'>
           <Grid.Column style={style.verticalBar} color='grey' width={4} textAlign='right'>
@@ -40,6 +42,7 @@ class App extends Component {
 
           <Grid.Column width={7}>
             <Predictions
+              predictions={predictions}
             />
               <Divider />
             <SearchPanes
