@@ -57,10 +57,9 @@ class NewSearch extends Component {
     })
     .then((response) => {
       console.log('successful post request /stops');
-      console.log(response.data);
       this.setState({
-        stops: response.data[0],
-        stopsIds: response.data[1]
+        stops: this.makeSemanticOptions(response.data[0]),
+        stopsIds: this.makeSemanticOptions(response.data[1])
       });
     })
     .catch((error) => {
@@ -69,7 +68,7 @@ class NewSearch extends Component {
   }
 
   render() {
-    const { directions, direction, buses } = this.state
+    const { directions, direction, buses, stops } = this.state
     return (
       <div>
         <div><h1>New Search</h1></div>
@@ -101,6 +100,7 @@ class NewSearch extends Component {
             selection
             label='Stop'
             placeholder='Stop'
+            options={stops}
             />
           <Button type='submit'>Get Predictions!</Button>
         </Form>
