@@ -14,7 +14,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015'],
+          presets: ['react', 'es2015', 'stage-2'],
         },
       },
       {
@@ -25,13 +25,6 @@ module.exports = {
         ],
       },
     ],
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './client/',
-    inline:true,
-    host: '127.0.0.1',
-    port: 3000,
   },
   resolve: {
     extensions: ['.jsx', '.js', '.es6'],

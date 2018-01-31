@@ -19,28 +19,19 @@ class NewSearch extends Component {
       stops: [],
       stopsIds: [],
     }
-
-    this.onNameChange = this.onNameChange.bind(this);
-    this.onDirectionSelection = this.onDirectionSelection.bind(this);
-    this.onBusSelection = this.onBusSelection.bind(this);
-    this.onStopSelection = this.onStopSelection.bind(this);
-
-    this.getStops = this.getStops.bind(this);
-    this.getBuses = this.getBuses.bind(this);
-    this.getPredictions = this.getPredictions.bind(this);
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.getBuses();
   }
 
-  onNameChange(event) { this.setState({ name: event.target.value})}
+  onNameChange = (event) => this.setState({ name: event.target.value})
 
-  onDirectionSelection(e, { value }) {this.setState({ direction: value})}
+  onDirectionSelection = (e, { value }) => this.setState({ direction: value})
 
-  onBusSelection(e, { value }) {this.setState({ busSelection: value}, this.getStops)}
+  onBusSelection = (e, { value }) => this.setState({ busSelection: value}, this.getStops)
 
-  onStopSelection(e, { value }) {
+  onStopSelection = (e, { value }) => {
     const { stops, stopsIds } = this.state
     this.setState({
       busStop: value,
@@ -48,7 +39,7 @@ class NewSearch extends Component {
     })
   }
 
-  getBuses() {
+  getBuses = () => {
     axios.get('/buses')
     .then(res => {
       this.setState({buses: res.data.sort()})
@@ -58,7 +49,7 @@ class NewSearch extends Component {
     })
   }
 
-  getStops() {
+  getStops = () => {
     axios.get('/stops', {
       params: {
         busSelection: this.state.busSelection,
@@ -76,8 +67,9 @@ class NewSearch extends Component {
     });
   }
 
-  getPredictions() {
+  getPredictions = () => {
     const { name, busSelection, busStopId, busStop, direction } = this.state
+    const { setPredictions } = this.props
     axios.get('/predictions', {
       params: {
         name: name,
@@ -89,14 +81,14 @@ class NewSearch extends Component {
     })
     .then((res) => {
       console.log(res.data.slice(0,3))
-      this.setState({predictions: res.data.slice(0,3)})
+      setPredictions()
     })
     .catch((error) => {
       console.error('unsuccessful getPredictions req: ', error);
     });
   }
 
-  makeSemanticOptions(array) {
+  makeSemanticOptions = (array) => {
     return array.map(elem => {
       return {
         'key': elem,
@@ -106,7 +98,7 @@ class NewSearch extends Component {
     })
   }
 
-  render() {
+  render = () => {
     const { directions, direction, buses, stops } = this.state
     return (
       <div>

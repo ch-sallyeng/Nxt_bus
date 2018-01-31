@@ -7,6 +7,18 @@ import Predictions from './components/predictions.jsx'
 import SearchPanes from './components/search_panes.jsx'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      predictions: []
+    }
+    this.setPredictions = this.setPredictions.bind(this);
+  }
+
+  setPredictions() {
+
+  }
 
   render() {
     const style = {
