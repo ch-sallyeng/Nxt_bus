@@ -83,7 +83,6 @@ class NewSearch extends Component {
   }
 
   getPredictions() {
-    console.log('inside get predictions')
     const { name, busSelection, busStopId, busStop, direction } = this.state
     axios.get('/predictions', {
       params: {
@@ -95,9 +94,6 @@ class NewSearch extends Component {
       }
     })
     .then((res) => {
-      console.log('successful get request /predictions');
-      console.log('RETURNED from getPredictions: ', res.data);
-
       this.setState({predictions: res.data.slice(0,3)})
     })
     .catch((error) => {
@@ -152,6 +148,7 @@ class NewSearch extends Component {
             onChange={this.onStopSelection}
             />
           <Button
+            onClick={this.getPredictions}
             >Get Predictions!</Button>
         </Form>
       </div>

@@ -51,18 +51,13 @@ const getStops = (req) => {
 };
 
 const getPredictions = (req) => {
-  console.log('HELPER: inside getBuses');
   const { busSelection, busStopId } = req.query;
-
-  console.log(busSelection + ' ++++++ ' + busStopId);
-
   return axios.get(`${nextBusAddress}/routes/${busSelection}/stops/${busStopId}/predictions`)
     .then(res => {
-      const predictionsObj = res.data[0].values;
-      const predictions = predictionsObj.map(prediction => {
+      const predictions = res.data[0].values;
+      return predictions.map(prediction => {
         return prediction.minutes;
       });
-      return predictions;
     })
     .catch(err => {
       console.log(`yo you got an error in apihelpers inside getPredictions ${err}`);
