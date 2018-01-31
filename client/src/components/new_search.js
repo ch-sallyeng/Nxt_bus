@@ -13,18 +13,7 @@ class NewSearch extends Component {
       busStop: '',
       busStopId: '',
 
-      directions: [
-        {
-          'key': 'Inbound',
-          'text': 'Inbound',
-          'value': 'Inbound',
-        },
-        {
-          'key': 'Outbound',
-          'text': 'Outbound',
-          'value': 'Outbound',
-        }
-      ],
+      directions: this.makeSemanticOptions(['Inbound', 'Outbound']),
 
       buses: [],
       stops: [],
@@ -39,16 +28,29 @@ class NewSearch extends Component {
     this.getBuses();
   }
 
+  makeSemanticOptions (array) {
+    return array.map(elem => {
+      return {
+        'key': elem,
+        'text': elem,
+        'value': elem,
+      }
+    })
+  }
+
   getBuses() {
     axios.get('/buses')
       .then(res => {
-        console.log('returned from server /buses', res);
+        this.setState({buses: this.makeSemanticOptions(res.data).sort()})
+      })
+      .catch(err => {
+        console.error('unsuccessful getBuses req: ', error);
       })
 
   }
 
   render() {
-    const { directions } = this.state
+    const { directions, buses } = this.state
     return (
       <div>
         <div><h1>New Search</h1></div>
@@ -65,7 +67,12 @@ class NewSearch extends Component {
             placeholder='Direction'
             options={directions}
             />
-          <Form.Dropdown fluid selection label='Bus Number' placeholder='Bus Number' />
+          <Form.Dropdown
+            fluid
+            selection
+            label='Bus Number'
+            placeholder='Bus Number'
+            options={buses} />
           <Form.Dropdown fluid selection label='Stop' placeholder='Stop' />
           <Button type='submit'>Get Predictions!</Button>
         </Form>
@@ -75,3 +82,23 @@ class NewSearch extends Component {
 }
 
 export default NewSearch;
+
+// {predictions.map(prediction => (
+//   <Statistic color='orange'>
+//     <Statistic.Value>{prediction}</Statistic.Value>
+//     <Statistic.Label>Minutes</Statistic.Label>
+//   </Statistic>
+// ))}
+
+// [
+//   {
+//     'key': 'Inbound',
+//     'text': 'Inbound',
+//     'value': 'Inbound',
+//   },
+//   {
+//     'key': 'Outbound',
+//     'text': 'Outbound',
+//     'value': 'Outbound',
+//   }
+// ]

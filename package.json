@@ -30,6 +30,7 @@
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "restbus": "^1.2.0",
     "semantic-ui-react": "^0.77.2"
   }
