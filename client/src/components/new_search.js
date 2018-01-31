@@ -49,12 +49,15 @@ class NewSearch extends Component {
   }
 
   getStops() {
-    axios.post('/stops', {
-      busSelection: this.state.busSelection,
-      direction: this.state.direction,
+    axios.get('/stops', {
+      params: {
+        busSelection: this.state.busSelection,
+        direction: this.state.direction
+      }
     })
     .then((response) => {
       console.log('successful post request /stops');
+      console.log(response.data);
       this.setState({
         stops: response.data[0],
         stopsIds: response.data[1]

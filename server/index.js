@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
 });
 
 app.use('/buses', require('./routes/buses'));
+app.use('/stops', require('./routes/stops'));
 
 
 /******************* END: REQUEST HANDLERS **********************/
