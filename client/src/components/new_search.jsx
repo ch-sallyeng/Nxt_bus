@@ -13,7 +13,7 @@ class NewSearch extends Component {
       busStop: '',
       busStopId: '',
 
-      directions: this.makeSemanticOptions(['Inbound', 'Outbound']),
+      directions: ['Inbound', 'Outbound'],
 
       buses: [],
       stops: [],
@@ -41,18 +41,22 @@ class NewSearch extends Component {
 
   onDirectionSelection(e, { value }) {this.setState({ direction: value})}
 
-  onBusSelection = (e, { value }) => this.setState({ busSelection: value}, this.getStops)
+  onBusSelection(e, { value }) {this.setState({ busSelection: value}, this.getStops)}
 
   onStopSelection(e, { value }) {
-    this.setState({busStop: value})
-    const stopIndex = this.state.stops.indexOf(value)
-    this.setState({busStopId: this.state.stopsIdArr[stopIndex]});
+    const { stops, stopsIds } = this.state
+    console.log(value);
+    console.log(stopsIds[stops.indexOf(value)]);
+    this.setState({
+      busStop: value,
+      busStopId: stopsIds[stops.indexOf(value)]
+    })
   }
 
   getBuses() {
     axios.get('/buses')
     .then(res => {
-      this.setState({buses: this.makeSemanticOptions(res.data).sort()})
+      this.setState({buses: res.data.sort()})
     })
     .catch(err => {
       console.error('unsuccessful getBuses req: ', error);
@@ -69,8 +73,8 @@ class NewSearch extends Component {
     })
     .then((res) => {
       this.setState({
-        stops: this.makeSemanticOptions(res.data[0]),
-        stopsIds: this.makeSemanticOptions(res.data[1])
+        stops: res.data[0],
+        stopsIds: res.data[1]
       });
     })
     .catch((error) => {
@@ -121,31 +125,31 @@ class NewSearch extends Component {
           <Form.Input
             label='Name'
             placeholder='Name'
-            onChange={onNameChange}
+            onChange={this.onNameChange}
             />
           <Form.Dropdown
             fluid
             selection
             label='Direction'
             placeholder='Direction'
-            options={directions}
-            onChange={onDirectionSelection}
+            options={this.makeSemanticOptions(directions)}
+            onChange={this.onDirectionSelection}
             />
           <Form.Dropdown
             fluid
             selection
             label='Bus Number'
             placeholder='Bus Number'
-            options={buses}
-            onChange={onBusSelection}
+            options={this.makeSemanticOptions(buses)}
+            onChange={this.onBusSelection}
             />
           <Form.Dropdown
             fluid
             selection
             label='Stop'
             placeholder='Stop'
-            options={stops}
-            onChange={onStopSelection}
+            options={this.makeSemanticOptions(stops)}
+            onChange={this.onStopSelection}
             />
           <Button
             >Get Predictions!</Button>
