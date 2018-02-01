@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react'
 import { Grid, Divider } from 'semantic-ui-react'
+import axios from 'axios'
 
 import VerticalBar from './components/vertical_bar.jsx'
 import Predictions from './components/predictions.jsx'
@@ -19,10 +20,29 @@ class App extends Component {
   }
 
   setPredictions = (predictions) => {
-    console.log('this is predictions inside app.jsx: ', predictions);
     this.setState({
       predictions: predictions
     })
+  }
+
+  getPredictions = (busSelection, busStopId, busStop, direction, name) => {
+    console.log('stopID: ', busStopId, 'busNum: ', busSelection)
+    axios.get('/predictions', {
+      params: {
+        name: name,
+        busSelection: busSelection,
+        busStopId: busStopId,
+        busStop: busStop,
+        direction: direction,
+      }
+    })
+    .then((res) => {
+      console.log('result from predictions fetch: ', res)
+      this.setPredictions(res.data.slice(0,3))
+    })
+    .catch((error) => {
+      console.error('unsuccessful getPredictions req: ', error);
+    });
   }
 
   setDirectionLabel = (direction) => this.setState({ direction: direction });
@@ -56,7 +76,7 @@ class App extends Component {
             />
             { predictions.length > 0 ? ( <Divider /> ) : null }
             <SearchPanes
-              setPredictions={this.setPredictions}
+              getPredictions={this.getPredictions}
               setDirectionLabel={this.setDirectionLabel}
               setBusLabel={this.setBusLabel}
               setStopLabel={this.setStopLabel}

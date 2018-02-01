@@ -8,7 +8,6 @@ router.get('/', (req, res) => {
 
   Promise.resolve(db.getQuery(req))
     .then(result => {
-      console.log('SERVEER: this is the result: ', result);
       res.status(200).send(result);
     })
     .catch(err => {

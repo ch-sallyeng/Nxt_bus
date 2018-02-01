@@ -15,6 +15,7 @@ CREATE TABLE users (
 CREATE TABLE queryrecords (
   id int NOT NULL AUTO_INCREMENT,
   user_id int NOT NULL,
+  busstopid int NOT NULL,
   busselection varchar (100) NOT NULL,
   busstop varchar (100) NOT NULL,
   direction varchar (100) NOT NULL,

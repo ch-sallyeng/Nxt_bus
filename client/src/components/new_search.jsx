@@ -43,6 +43,13 @@ class NewSearch extends Component {
     }, this.props.setStopLabel(value))
   }
 
+  onGetPredictionsClick = () => {
+    const { name, busSelection, busStopId, busStop, direction } = this.state
+    const { getPredictions } = this.props
+
+    getPredictions(busSelection, busStopId, busStop, direction, name);
+  }
+
   getBuses = () => {
     axios.get('/buses')
     .then(res => {
@@ -71,31 +78,10 @@ class NewSearch extends Component {
     });
   }
 
-  getPredictions = () => {
-    const { name, busSelection, busStopId, busStop, direction } = this.state
-    const { setPredictions } = this.props
-
-    axios.get('/predictions', {
-      params: {
-        name: name,
-        busSelection: busSelection,
-        busStopId: busStopId,
-        busStop: busStop,
-        direction: direction,
-      }
-    })
-    .then((res) => {
-      setPredictions(res.data.slice(0,3))
-    })
-    .catch((error) => {
-      console.error('unsuccessful getPredictions req: ', error);
-    });
-  }
-
   makeSemanticOptions = (array) => {
-    return array.map(elem => {
+    return array.map((elem, i) => {
       return {
-        'key': elem,
+        'key': i,
         'text': elem,
         'value': elem,
       }
@@ -140,7 +126,7 @@ class NewSearch extends Component {
             onChange={this.onStopSelection}
             />
           <Button
-            onClick={this.getPredictions}
+            onClick={this.onGetPredictionsClick}
             >Get Predictions!</Button>
         </Form>
       </div>

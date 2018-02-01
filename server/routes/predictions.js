@@ -6,7 +6,13 @@ const apiHelpers = require('../api_helpers');
 const db = require('../database/index');
 
 router.get('/', (req, res) => {
-  db.storeQuery(req);
+  const { name } = req.query;
+
+  // if it's a new search, save query
+  if (name) {
+    console.log('goes into saving query');
+    db.storeQuery(req);
+  }
 
   // get predictions based on bus and stopId
   apiHelpers.getPredictions(req)

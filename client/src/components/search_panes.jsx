@@ -10,13 +10,13 @@ class SearchPanes extends Component {
   }
 
   render() {
-    const { setPredictions, setDirectionLabel, setBusLabel, setStopLabel } = this.props;
+    const { getPredictions, setDirectionLabel, setBusLabel, setStopLabel } = this.props;
 
     const panes = [
       { menuItem: 'New Search', render: () =>
         <Tab.Pane attached={false}>
           <NewSearch
-            setPredictions={setPredictions}
+            getPredictions={getPredictions}
             setDirectionLabel={setDirectionLabel}
             setBusLabel={setBusLabel}
             setStopLabel={setStopLabel}
@@ -24,7 +24,9 @@ class SearchPanes extends Component {
         </Tab.Pane>},
       { menuItem: 'Past Searches', render: () =>
         <Tab.Pane attached={false}>
-          <PastSearch />
+          <PastSearch
+            getPredictions={getPredictions}
+          />
         </Tab.Pane>}
     ]
 

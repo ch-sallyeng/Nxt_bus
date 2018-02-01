@@ -9,6 +9,7 @@ class PastSearch extends Component {
     this.state = {
       name: '',
       pastSearches: [],
+      busStopId: '',
     }
   }
 
@@ -21,16 +22,25 @@ class PastSearch extends Component {
       }
     })
     .then((response) => {
-      console.log(response.data);
-      this.setState({pastSearches: response.data})
+      this.setState({
+        pastSearches: response.data,
+        busStopId: response.data.busStopId
+      })
     })
     .catch((error) => {
       console.error('unsuccessful get request /records', error);
     });
   }
 
+  onPastSearchSelection = (e, { value }) => {
+    console.log(value.split(','));
+    const { getPredictions } = this.state;
+    getPredictions(busSelection, busStopId);
+  }
+
   render = () => {
     const { pastSearches } = this.state;
+
     return (
       <div>
         <div><h1>Past Searches</h1></div>
@@ -49,12 +59,12 @@ class PastSearch extends Component {
         { pastSearches.length > 0 ? ( <Divider /> ) : null }
 
         <List animated relaxed>
-        { pastSearches.map((search, i) => (
-          <List.Item>
-            <Label color='orange' size='large'>{search.busselection}</Label>
-            <Label color='grey' size='large'>{search.direction}</Label>
+        { pastSearches.map(({ busstopid, busselection, busstop, direction }, i) => (
+          <List.Item onClick={this.onPastSearchSelection} value={`${busstopid}, ${busselection}`}>
+            <Label color='orange' size='large'>{busselection}</Label>
+            <Label color='grey' size='large'>{direction}</Label>
             <Label>@</Label>
-            <Label color='black' size='large'>{search.busstop}</Label>
+            <Label color='black' size='large'>{busstop}</Label>
           </List.Item>
         )) }
         </List>
@@ -64,4 +74,6 @@ class PastSearch extends Component {
 }
 
 export default PastSearch
+
+
 
