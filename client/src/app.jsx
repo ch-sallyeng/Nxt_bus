@@ -27,7 +27,6 @@ class App extends Component {
 
   // destructure when you can
   updateTagsOnPastSearch = (e, { value }) => {
-    console.log(value.split(','));
     let inputs = value.split(',')
     this.setState({
       busSelection: inputs[0],
@@ -38,7 +37,6 @@ class App extends Component {
   }
 
   getPredictions = (busSelection, busStopId, busStop, direction, name) => {
-    console.log('stopID: ', busStopId, 'busNum: ', busSelection)
     axios.get('/predictions', {
       params: {
         name: name,
@@ -49,7 +47,6 @@ class App extends Component {
       }
     })
     .then((res) => {
-      console.log('result from predictions fetch: ', res)
       this.setPredictions(res.data.slice(0,3))
     })
     .catch((error) => {
