@@ -9,6 +9,7 @@ const Predictions = ({ predictions, direction, busSelection, busStop }) => (
           { direction ? ( <h2>Next Bus:</h2> ) : null }
           { busSelection ? ( <Label>{busSelection}</Label> ) : null }
           { direction ? ( <Label>{direction}</Label> ) : null }
+          { busStop ? ( <Label>@</Label> ) : null }
           { busStop ? ( <Label>{busStop}</Label> ) : null }
       </Label.Group>
 

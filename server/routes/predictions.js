@@ -3,10 +3,14 @@ const express = require('express'),
 
 const Promise = require('bluebird');
 const apiHelpers = require('../api_helpers');
+const db = require('../database/index');
 
 router.get('/', (req, res) => {
+  db.storeQuery(req);
+
   // get predictions based on bus and stopId
   apiHelpers.getPredictions(req)
+
     .then(predictions => {
       res.status(200).send(predictions);
     })
