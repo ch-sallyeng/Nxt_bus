@@ -25,7 +25,7 @@ class NewSearch extends Component {
     this.getBuses();
   }
 
-  onNameChange = (event) => this.setState({ name: event.target.value })
+  onNameChange = (e, { value }) => this.setState({ name: value })
 
   onDirectionSelection = (e, { value }) => this.setState({ direction: value }, this.props.setDirectionLabel(value))
 

@@ -1,12 +1,15 @@
 
-var mysql = require('mysql');
+const Promise = require('bluebird');
+const mysql = require('mysql');
 
-var db = mysql.createConnection({
+let db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '38ankeny',
   database: 'nextbus'
 });
+
+db = Promise.promisifyAll(db);
 
 db.connect(function(err) {
   if (err) {
@@ -48,4 +51,20 @@ storeQuery = (req) => {
   });
 };
 
+getQuery = (req) => {
+  const { name } = req.query;
+
+  const queryStr = 'SELECT * FROM queryrecords WHERE user_id = (SELECT id FROM users WHERE user = ?)';
+
+  return db.queryAsync(queryStr, name)
+    .then((result, err) => {
+      console.log('DB: this is the result: ', result);
+      if (err) {
+        console.log('Error inside query: ', err);
+      }
+      return result;
+    });
+};
+
 module.exports.storeQuery = storeQuery;
+module.exports.getQuery = getQuery;
