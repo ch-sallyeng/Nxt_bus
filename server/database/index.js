@@ -21,15 +21,13 @@ storeQuery = (req) => {
   // insert query into database under username //
   const { name, busSelection, busStop, direction } = req.query;
   db.query('INSERT IGNORE INTO users (user) VALUES (?)', name, (err, result) => {
-    console.log('result-1: ', result)
     if (err) {
-      console.log('Error inside query: ', err);
+      console.log('Error inside query 1: ', err);
     }
 
     db.query('SELECT id FROM users WHERE user = ?', name, (err, result) => {
-      console.log('result-2: ', result)
       if (err) {
-        console.log('Error inside query: ', err);
+        console.log('Error inside query 2: ', err);
       }
 
       let params = [result[0].id, busSelection, busStop, direction];
@@ -43,7 +41,7 @@ storeQuery = (req) => {
       db.query(queryStr, params, (err, result) => {
         console.log('inserting into query records: ', result);
         if (err) {
-          console.log('Error inside query: ', err);
+          console.log('Error inside query 3: ', err);
         }
       });
     });
