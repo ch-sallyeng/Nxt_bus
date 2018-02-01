@@ -25,6 +25,18 @@ class App extends Component {
     })
   }
 
+  // destructure when you can
+  updateTagsOnPastSearch = (e, { value }) => {
+    console.log(value.split(','));
+    let inputs = value.split(',')
+    this.setState({
+      busSelection: inputs[0],
+      busStopId: inputs[1],
+      busStop: inputs[2],
+      direction: inputs[3]
+    }, this.getPredictions(inputs[0], inputs[1]))
+  }
+
   getPredictions = (busSelection, busStopId, busStop, direction, name) => {
     console.log('stopID: ', busStopId, 'busNum: ', busSelection)
     axios.get('/predictions', {
@@ -67,7 +79,7 @@ class App extends Component {
             <VerticalBar />
           </Grid.Column>
 
-          <Grid.Column width={7}>
+          <Grid.Column width={8}>
             <Predictions
               predictions={predictions}
               direction={direction}
@@ -80,6 +92,7 @@ class App extends Component {
               setDirectionLabel={this.setDirectionLabel}
               setBusLabel={this.setBusLabel}
               setStopLabel={this.setStopLabel}
+              updateTagsOnPastSearch={this.updateTagsOnPastSearch}
             />
           </Grid.Column>
       </Grid>

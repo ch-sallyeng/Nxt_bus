@@ -10,7 +10,7 @@ class SearchPanes extends Component {
   }
 
   render() {
-    const { getPredictions, setDirectionLabel, setBusLabel, setStopLabel } = this.props;
+    const { getPredictions, setDirectionLabel, setBusLabel, setStopLabel, updateTagsOnPastSearch } = this.props;
 
     const panes = [
       { menuItem: 'New Search', render: () =>
@@ -26,6 +26,7 @@ class SearchPanes extends Component {
         <Tab.Pane attached={false}>
           <PastSearch
             getPredictions={getPredictions}
+            updateTagsOnPastSearch={updateTagsOnPastSearch}
           />
         </Tab.Pane>}
     ]

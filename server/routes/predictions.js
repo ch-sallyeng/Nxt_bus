@@ -24,3 +24,5 @@ router.get('/', (req, res) => {
 });
 
 module.exports = router;
+
+// render the "Next bus coming" for past searches as well as update button tags

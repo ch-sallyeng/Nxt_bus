@@ -32,15 +32,9 @@ class PastSearch extends Component {
     });
   }
 
-  onPastSearchSelection = (e, { value }) => {
-    let inputs = value.split(',');
-    console.log(inputs);
-    const { getPredictions } = this.props;
-    getPredictions(inputs[0], inputs[1]);
-  }
-
   render = () => {
     const { pastSearches } = this.state;
+    const { updateTagsOnPastSearch } = this.props;
 
     return (
       <div>
@@ -61,7 +55,7 @@ class PastSearch extends Component {
 
         <List animated relaxed>
         { pastSearches.map(({ busstopid, busselection, busstop, direction }, i) => (
-          <List.Item onClick={this.onPastSearchSelection} value={`${busselection},${busstopid}`}>
+          <List.Item onClick={updateTagsOnPastSearch} key={i} value={`${busselection},${busstopid},${busstop},${direction}`}>
             <Label color='orange' size='large'>{busselection}</Label>
             <Label color='grey' size='large'>{direction}</Label>
             <Label>@</Label>
@@ -77,4 +71,5 @@ class PastSearch extends Component {
 export default PastSearch
 
 
-
+// render the "Next bus coming" for past searches as well as update button tags
+// might want to pass up everything you have in line 64's value prop and set states
