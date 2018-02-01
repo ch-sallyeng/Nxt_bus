@@ -33,9 +33,10 @@ class PastSearch extends Component {
   }
 
   onPastSearchSelection = (e, { value }) => {
-    console.log(value.split(','));
-    const { getPredictions } = this.state;
-    getPredictions(busSelection, busStopId);
+    let inputs = value.split(',');
+    console.log(inputs);
+    const { getPredictions } = this.props;
+    getPredictions(inputs[0], inputs[1]);
   }
 
   render = () => {
@@ -60,7 +61,7 @@ class PastSearch extends Component {
 
         <List animated relaxed>
         { pastSearches.map(({ busstopid, busselection, busstop, direction }, i) => (
-          <List.Item onClick={this.onPastSearchSelection} value={`${busstopid}, ${busselection}`}>
+          <List.Item onClick={this.onPastSearchSelection} value={`${busselection},${busstopid}`}>
             <Label color='orange' size='large'>{busselection}</Label>
             <Label color='grey' size='large'>{direction}</Label>
             <Label>@</Label>

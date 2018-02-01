@@ -42,7 +42,6 @@ storeQuery = (req) => {
         `;
 
       db.query(queryStr, params, (err, result) => {
-        console.log('inserting into query records: ', result);
         if (err) {
           console.log('Error inside query 3: ', err);
         }

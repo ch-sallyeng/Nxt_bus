@@ -10,13 +10,11 @@ router.get('/', (req, res) => {
 
   // if it's a new search, save query
   if (name) {
-    console.log('goes into saving query');
     db.storeQuery(req);
   }
 
   // get predictions based on bus and stopId
   apiHelpers.getPredictions(req)
-
     .then(predictions => {
       res.status(200).send(predictions);
     })
