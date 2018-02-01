@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Form } from 'semantic-ui-react'
+import { Input, Form, Label, List, Divider, Icon } from 'semantic-ui-react'
 import axios from 'axios'
 
 class PastSearch extends Component {
@@ -8,21 +8,20 @@ class PastSearch extends Component {
 
     this.state = {
       name: '',
+      pastSearches: [],
     }
   }
 
   onPastSearchInput = (e, { value }) => this.setState({ name: value })
 
   getPastSearches = () => {
-    console.log('inside getRecords req');
-    console.log(this.state.name);
     axios.get('/records',{
       params: {
         name: this.state.name,
       }
     })
     .then((response) => {
-      console.log('Returned from getRecords: ', response.data);
+      console.log(response.data);
       this.setState({pastSearches: response.data})
     })
     .catch((error) => {
@@ -31,6 +30,7 @@ class PastSearch extends Component {
   }
 
   render = () => {
+    const { pastSearches } = this.state;
     return (
       <div>
         <div><h1>Past Searches</h1></div>
@@ -45,6 +45,19 @@ class PastSearch extends Component {
           >Search</Form.Button>
           </Form.Input>
         </Form>
+
+        { pastSearches.length > 0 ? ( <Divider /> ) : null }
+
+        <List animated relaxed>
+        { pastSearches.map((search, i) => (
+          <List.Item>
+            <Label color='orange' size='large'>{search.busselection}</Label>
+            <Label color='grey' size='large'>{search.direction}</Label>
+            <Label>@</Label>
+            <Label color='black' size='large'>{search.busstop}</Label>
+          </List.Item>
+        )) }
+        </List>
       </div>
     )
   }

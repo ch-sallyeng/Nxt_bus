@@ -54,7 +54,7 @@ class App extends Component {
               busSelection={busSelection}
               busStop={busStop}
             />
-              <Divider />
+            { predictions.length > 0 ? ( <Divider /> ) : null }
             <SearchPanes
               setPredictions={this.setPredictions}
               setDirectionLabel={this.setDirectionLabel}

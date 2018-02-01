@@ -21,7 +21,7 @@ const Predictions = ({ predictions, direction, busSelection, busStop }) => (
       <div>
         <Statistic.Group widths='four'>
           { predictions.length > 0 ? predictions.map(prediction => (
-            <Statistic color='orange'>
+            <Statistic color='orange' size='large'>
               <Statistic.Value>{prediction}</Statistic.Value>
               <Statistic.Label>Minutes</Statistic.Label>
             </Statistic>
