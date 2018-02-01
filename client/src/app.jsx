@@ -11,7 +11,10 @@ class App extends Component {
     super(props);
 
     this.state = {
-      predictions: []
+      predictions: [],
+      direction: '',
+      busSelection: '',
+      busStop: ''
     }
   }
 
@@ -21,6 +24,10 @@ class App extends Component {
       predictions: predictions
     })
   }
+
+  setDirectionLabel = (direction) => this.setState({ direction: direction });
+  setBusLabel = (busSelection) => this.setState({ busSelection: busSelection });
+  setStopLabel = (busStop) => this.setState({ busStop: busStop });
 
   render() {
     const style = {
@@ -32,7 +39,7 @@ class App extends Component {
       }
     }
 
-    const { predictions } = this.state;
+    const { predictions, direction, busSelection, busStop } = this.state;
 
     return (
       <Grid padded='vertically'>
@@ -43,10 +50,16 @@ class App extends Component {
           <Grid.Column width={7}>
             <Predictions
               predictions={predictions}
+              direction={direction}
+              busSelection={busSelection}
+              busStop={busStop}
             />
               <Divider />
             <SearchPanes
               setPredictions={this.setPredictions}
+              setDirectionLabel={this.setDirectionLabel}
+              setBusLabel={this.setBusLabel}
+              setStopLabel={this.setStopLabel}
             />
           </Grid.Column>
       </Grid>

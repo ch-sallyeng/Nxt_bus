@@ -25,18 +25,22 @@ class NewSearch extends Component {
     this.getBuses();
   }
 
-  onNameChange = (event) => this.setState({ name: event.target.value})
+  onNameChange = (event) => this.setState({ name: event.target.value })
 
-  onDirectionSelection = (e, { value }) => this.setState({ direction: value})
+  onDirectionSelection = (e, { value }) => this.setState({ direction: value }, this.props.setDirectionLabel(value))
 
-  onBusSelection = (e, { value }) => this.setState({ busSelection: value}, this.getStops)
+  onBusSelection = (e, { value }) => {
+    const  { setBusLabel } = this.props;
+    setBusLabel(value);
+    this.setState({ busSelection: value }, this.getStops);
+  }
 
   onStopSelection = (e, { value }) => {
     const { stops, stopsIds } = this.state
     this.setState({
       busStop: value,
       busStopId: stopsIds[stops.indexOf(value)]
-    })
+    }, this.props.setStopLabel(value))
   }
 
   getBuses = () => {
@@ -49,7 +53,7 @@ class NewSearch extends Component {
     })
   }
 
-  getStops = () => {
+  getStops = (value) => {
     axios.get('/stops', {
       params: {
         busSelection: this.state.busSelection,
@@ -81,7 +85,6 @@ class NewSearch extends Component {
       }
     })
     .then((res) => {
-      console.log(res.data.slice(0,3))
       setPredictions(res.data.slice(0,3))
     })
     .catch((error) => {

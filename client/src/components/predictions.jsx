@@ -1,27 +1,31 @@
 import React from 'react'
 import { Statistic, Label } from 'semantic-ui-react'
 
-const Predictions = ({ predictions }) => (
+const Predictions = ({ predictions, direction, busSelection, busStop }) => (
   <div>
-      <div><h2>Next Bus coming in...</h2></div>
       <div>
+
+      <Label.Group size='medium' color='black'>
+          { direction ? ( <h2>Next Bus:</h2> ) : null }
+          { busSelection ? ( <Label>{busSelection}</Label> ) : null }
+          { direction ? ( <Label>{direction}</Label> ) : null }
+          { busStop ? ( <Label>{busStop}</Label> ) : null }
+      </Label.Group>
+
+      </div>
+
       <br />
+      <br />
+
+      <div>
         <Statistic.Group widths='four'>
-          {predictions.map(prediction => (
+          { predictions.length > 0 ? predictions.map(prediction => (
             <Statistic color='orange'>
               <Statistic.Value>{prediction}</Statistic.Value>
               <Statistic.Label>Minutes</Statistic.Label>
             </Statistic>
-          ))}
+          )) : null }
         </Statistic.Group>
-      </div>
-      <br />
-      <div>
-        <Label.Group size='small'>
-          <Label>38</Label>
-          <Label>Inbound</Label>
-          <Label>Geary & Divisadero</Label>
-        </Label.Group>
       </div>
   </div>
 )
@@ -29,23 +33,3 @@ const Predictions = ({ predictions }) => (
 export default Predictions
 
 
-
-// <Statistic color='orange'>
-// <Statistic.Value>9</Statistic.Value>
-// <Statistic.Label>Minutes</Statistic.Label>
-// </Statistic>
-
-// <Statistic color='orange'>
-// <Statistic.Value>13</Statistic.Value>
-// <Statistic.Label>Minutes</Statistic.Label>
-// </Statistic>
-
-// <Statistic color='orange'>
-// <Statistic.Value>18</Statistic.Value>
-// <Statistic.Label>Minutes</Statistic.Label>
-// </Statistic>
-
-// <Statistic color='orange'>
-// <Statistic.Value>22</Statistic.Value>
-// <Statistic.Label>Minutes</Statistic.Label>
-// </Statistic>
