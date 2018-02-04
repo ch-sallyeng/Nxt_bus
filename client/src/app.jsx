@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   // destructure when you can
-  updateTagsOnPastSearch = (e, { value }) => {
+  updateLabelsOnPastSearch = (e, { value }) => {
     let inputs = value.split(',')
     this.setState({
       busSelection: inputs[0],
@@ -89,7 +89,7 @@ class App extends Component {
               setDirectionLabel={this.setDirectionLabel}
               setBusLabel={this.setBusLabel}
               setStopLabel={this.setStopLabel}
-              updateTagsOnPastSearch={this.updateTagsOnPastSearch}
+              updateLabelsOnPastSearch={this.updateLabelsOnPastSearch}
             />
           </Grid.Column>
       </Grid>

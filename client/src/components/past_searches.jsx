@@ -34,7 +34,7 @@ class PastSearch extends Component {
 
   render = () => {
     const { pastSearches } = this.state;
-    const { updateTagsOnPastSearch } = this.props;
+    const { updateLabelsOnPastSearch } = this.props;
 
     return (
       <div>
@@ -55,7 +55,7 @@ class PastSearch extends Component {
 
         <List animated relaxed>
         { pastSearches.map(({ busstopid, busselection, busstop, direction }, i) => (
-          <List.Item onClick={updateTagsOnPastSearch} key={i} value={`${busselection},${busstopid},${busstop},${direction}`}>
+          <List.Item onClick={updateLabelsOnPastSearch} key={i} value={`${busselection},${busstopid},${busstop},${direction}`}>
             <Label color='orange' size='large'>{busselection}</Label>
             <Label color='grey' size='large'>{direction}</Label>
             <Label>@</Label>
