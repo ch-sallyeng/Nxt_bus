@@ -33,7 +33,7 @@ const apiPort = 3001;
 
 app.listen(serverPort, function() {
   restbus.listen(apiPort, function() {
-    console.log(`listening on port ${apiPort}!`);
+    console.log(`nextbus api listening on port ${apiPort}!`);
   });
-  console.log(`listening on port ${serverPort}!`);
+  console.log(`app listening on port ${serverPort}!`);
 });

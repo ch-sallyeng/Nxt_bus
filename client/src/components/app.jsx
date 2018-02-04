@@ -3,9 +3,11 @@ import React, { Component } from 'react'
 import { Grid, Divider } from 'semantic-ui-react'
 import axios from 'axios'
 
-import SearchPanes from './components/search_panes.jsx'
+import SearchPanes from './search_panes'
+import VerticalBar from './vertical_bar'
+import Predictions from '../containers/predictions'
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -21,8 +23,6 @@ class App extends Component {
       }
     }
 
-    const { predictions, direction, busSelection, busStop } = this.state;
-
     return (
       <Grid padded='vertically'>
           <Grid.Column style={style.verticalBar} color='grey' width={4} textAlign='right'>
@@ -30,7 +30,8 @@ class App extends Component {
           </Grid.Column>
 
           <Grid.Column width={8}>
-            <SearchPanes />
+            <Predictions />
+              <Divider />
           </Grid.Column>
       </Grid>
     )
@@ -38,4 +39,4 @@ class App extends Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+

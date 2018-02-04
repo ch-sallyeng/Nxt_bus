@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import busesReducers from '../reducers/reducer_buses'
+import busesReducer from '../reducers/reducer_buses'
+import predictionsReducer from '../reducers/reducer_predictions'
 
-const rootReducer = combineReduceres({
-  buses: busesReducers
+const rootReducer = combineReducers({
+  buses: busesReducer,
+  predictions: predictionsReducer
 });
 
 export default rootReducer
