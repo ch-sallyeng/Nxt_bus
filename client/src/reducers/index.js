@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import busesReducer from '../reducers/reducer_buses'
-import predictionsReducer from '../reducers/reducer_predictions'
+import BusesReducer from './reducer_buses'
+import PredictionsReducer from './reducer_predictions'
 
 const rootReducer = combineReducers({
-  buses: busesReducer,
-  predictions: predictionsReducer
+  buses: BusesReducer,
+  predictions: PredictionsReducer
 });
 
 export default rootReducer

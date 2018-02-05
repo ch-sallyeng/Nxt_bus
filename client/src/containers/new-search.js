@@ -1,43 +1,54 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { Button, Form } from 'semantic-ui-react';
-// import axios from 'axios';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { willMount } from '../actions/index';
+import { bindActionCreators } from 'redux';
+import { Button, Form } from 'semantic-ui-react';
+import axios from 'axios';
 
-// class NewSearch extends Component {
+class NewSearch extends Component {
 
-//   render = () => {
-//     const { buses } = this.props
+  componentWillMount = () => {
+    this.props.willMount()
+  }
 
-//     return (
-//       <div>
-//         <div><h1>New Search</h1></div>
-//         <br />
-//         <Form>
-//           <Form.Input
-//             label='Name'
-//             placeholder='Name'
-//             />
-//           <Form.Dropdown
-//             fluid
-//             selection
-//             label='Bus Number'
-//             placeholder='Bus Number'
-//             options={buses}
+  render = () => {
+      const { buses } = this.props;
+      console.log('buses after returned from reducer: ', buses);
+      return (
+      <div>
+        <div><h1>New Search</h1></div>
+        <br />
+        <Form>
+          <Form.Input
+            label='Name'
+            placeholder='Name'
+            />
+          <Form.Dropdown
+            fluid
+            selection
+            label='Bus Number'
+            placeholder='Bus Number'
+            options={buses}
+            />
+          <Button
+            >Get Predictions!</Button>
+        </Form>
+      </div>
+    )
+  }
+}
 
-//             />
-//           <Button
-//             >Get Predictions!</Button>
-//         </Form>
-//       </div>
-//     )
-//   }
-// }
+// all returned will be passed to container props
 
-// function mapStateToProps(state) {
-//   return {
-//     buses: state.buses
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    buses: state.buses
+  };
+}
 
+function mapDispatchToProps(dispatch) {
+  // passes all actions to reducers
+  return bindActionCreators({ willMount: willMount}, dispatch)
+}
 
-// export default connect(mapStateToProps)(NewSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(NewSearch);

@@ -1,21 +1,11 @@
-import axios from 'axios';
+// state is COMPONENT level the reducer is responsible for, NOT app level
 
-export default () => {
-  return axios.get('/buses')
-  .then(res => {
-    return makeSemanticOptions(res.data.sort())
-  })
-  .catch(err => {
-    console.error('unsuccessful getBuses req: ', error);
-  })
-}
+export default function(state = null, action) {
 
-function makeSemanticOptions(array) {
-  return array.map((elem, i) => {
-    return {
-      'key': i,
-      'text': elem,
-      'value': elem,
-    }
-  })
+  switch(action.type) {
+    case "WILL_MOUNT":
+      return action.payload;
+  }
+
+  return state;
 }
