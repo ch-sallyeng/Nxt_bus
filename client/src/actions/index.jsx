@@ -10,6 +10,7 @@ export const GET_BUSES = 'GET_BUSES';
 export const GET_STOPS = 'GET_STOPS';
 export const SET_BUS_SELECTION = 'SET_BUS_SELECTION';
 export const SET_DIRECTION_SELECTION = 'SET_DIRECTION_SELECTION';
+export const SET_STOP_SELECTION = 'SET_STOP_SELECTION';
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -21,7 +22,7 @@ export const VisibilityFilters = {
  * action creators
  */
 
-export function setDirectionSelection(direction) {
+export setDirectionSelection = (direction) => {
   return {
     type: SET_DIRECTION_SELECTION, direction
   };
@@ -30,6 +31,12 @@ export function setDirectionSelection(direction) {
 export function setBusSelection(busSelection) {
   return {
     type: SET_BUS_SELECTION, busSelection
+  };
+}
+
+export function setStopSelection(busStopId) {
+  return {
+    type: SET_STOP_SELECTION, busStopId
   };
 }
 

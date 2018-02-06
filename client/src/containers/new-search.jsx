@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
 
-import { getBuses, setDirectionSelection, setBusSelection, getStops } from '../actions/index';
-import { makeDropdownOptions } from '../utils/semanticHelpers';
+import { getBuses, setDirectionSelection, setBusSelection, getStops, setStopSelection } from '../actions/index';
+import { makeDropdownOptions, makeStopsOptions } from '../utils/semanticHelpers';
 
 class NewSearch extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class NewSearch extends Component {
     }
 
     const { dispatch } = props;
-    this.bindActionCreators = bindActionCreators({ getBuses, setDirectionSelection, setBusSelection, getStops }, dispatch);
+    this.bindActionCreators = bindActionCreators({ getBuses, setDirectionSelection, setBusSelection, getStops, setStopSelection }, dispatch);
   }
 
   componentDidMount = () => {
@@ -30,11 +30,17 @@ class NewSearch extends Component {
     dispatch(getStops(predictionInputs.direction, value));
   }
 
+  onStopSelection = (e, { value }) => {
+    const { dispatch, stopsData } = this.props;
+    dispatch(setStopSelection(value));
+    // dispatch(getPredictions(predictionInputs.direction, value));
+  }
+
   render = () => {
       const { directions } = this.state;
       const { dispatch, buses, predictionInputs, stopsData } = this.props;
 
-      console.log('stops data: ', stopsData);
+      console.log('returned from: ', predictionInputs);
 
       return (
       <div>
@@ -63,6 +69,15 @@ class NewSearch extends Component {
             options={buses}
             onChange={this.onBusSelection}
             />
+          { stopsData ? ( <Form.Dropdown
+              fluid
+              selection
+              label='Stop'
+              placeholder='Stop'
+              selectOnNavigation={false}
+              options={makeStopsOptions(stopsData)}
+              onChange={this.onStopSelection}
+              /> ) : null }
           <Button type='submit'>
             Get Predictions!
           </Button>
@@ -73,13 +88,8 @@ class NewSearch extends Component {
 }
 
 // all returned will be passed to container props
-function mapStateToProps({ buses, predictionInputs, stopsData }) {
+const mapStateToProps = ({ buses, predictionInputs, stopsData }) => {
   return { buses, predictionInputs, stopsData };
 }
-
-// function mapDispatchToProps(dispatch) {
-//   // passes all actions to reducers
-//   return bindActionCreators({ getBuses, setBusSelection }, dispatch)
-// }
 
 export default connect(mapStateToProps)(NewSearch);

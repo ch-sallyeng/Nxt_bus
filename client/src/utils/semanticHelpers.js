@@ -8,6 +8,17 @@ const makeDropdownOptions = (array) => {
   })
 }
 
+const makeStopsOptions = (stopsData) => {
+  return Object.keys(stopsData).map(busStopId => {
+    return {
+      'key': busStopId,
+      'text': stopsData[busStopId],
+      'value': busStopId
+    }
+  })
+}
+
 module.exports = {
   makeDropdownOptions,
+  makeStopsOptions
 }
