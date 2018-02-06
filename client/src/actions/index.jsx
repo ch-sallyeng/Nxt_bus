@@ -12,6 +12,7 @@ export const GET_BUSES = 'GET_BUSES';
 export const GET_STOPS = 'GET_STOPS';
 export const SET_BUS_SELECTION = 'SET_BUS_SELECTION';
 export const SET_STOP_SELECTION = 'SET_STOP_SELECTION';
+export const GET_PREDICTIONS = 'GET_PREDICTIONS';
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -68,18 +69,19 @@ export function getStops(direction, busSelection) {
   };
 }
 
-export function getPredictions({ busSelection, busStopId, direction }) {
+export function getPredictions({ name, busSelection, busStopId, direction }) {
+  console.log('inside getPredictions action Creator');
   const request = axios.get('/predictions', {
     params: {
+      name,
       busSelection,
       busStopId,
       direction,
     }
   })
 
-
   return {
-    type: GET_STOPS,
+    type: GET_PREDICTIONS,
     payload: request
   };
 }

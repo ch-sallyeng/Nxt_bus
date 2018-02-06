@@ -35,13 +35,11 @@ class NewSearch extends Component {
     }, dispatch);
   }
 
-  componentDidMount = () => {
-    this.props.dispatch(getBuses());
-  }
+  componentDidMount = () => this.props.dispatch(getBuses())
 
-  onNameChange = (e, { value }) => {
-    this.props.dispatch(setName(value))
-  }
+  onNameChange = (e, { value }) => this.props.dispatch(setName(value))
+
+  onDirectionSelection = (e, { value }) => this.props.dispatch(setDirectionSelection(value))
 
   onBusSelection = (e, { value }) => {
     const { dispatch, predictionInputs } = this.props;
@@ -49,11 +47,11 @@ class NewSearch extends Component {
     dispatch(getStops(predictionInputs.direction, value));
   }
 
-  onStopSelection = (e, { value }) => {
-    this.props.dispatch(setStopSelection(value));
-  }
+  onStopSelection = (e, { value }) => this.props.dispatch(setStopSelection(value))
 
-  onGetPredictionsClick = () => {
+  onGetPredictionsClick = (e) => {
+    e.preventDefault();
+    console.log('inside getpredictions click');
     const { dispatch, predictionInputs } = this.props;
     dispatch(getPredictions(predictionInputs))
   }
@@ -81,7 +79,7 @@ class NewSearch extends Component {
             placeholder='Direction'
             selectOnNavigation={false}
             options={makeDropdownOptions(directions)}
-            onChange={(e, { value }) => { dispatch(setDirectionSelection(value))}}
+            onChange={this.onDirectionSelection}
             />
           <Form.Dropdown
             fluid
