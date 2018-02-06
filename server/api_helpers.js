@@ -25,6 +25,7 @@ const getStops = (req) => {
 
   return axios.get(`${nextBusAddress}/routes/${busSelection}`)
     .then(res => {
+      const stopsData = {}
       const stopsInfo = res.data.stops;
       const directions = res.data.directions;
 
@@ -41,7 +42,12 @@ const getStops = (req) => {
               }
             }
           });
-          return [stopTitles, stopIds];
+
+          stopIds.forEach((id, i) => {
+            stopsData[id] = stopTitles[i];
+          });
+          return stopsData;
+
         }
       }
     })

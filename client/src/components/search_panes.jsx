@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Tab } from 'semantic-ui-react'
 
-import NewSearch from '../containers/new-search'
+import NewSearch from '../containers/new-search.jsx'
 
 const SearchPanes = ({ getPredictions, setDirectionLabel, setBusLabel, setStopLabel, updateLabelsOnPastSearch }) => {
 

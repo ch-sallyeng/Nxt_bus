@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getBuses, setBusSelection } from '../actions/index';
-
 import { Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
+
+import { getBuses, setDirectionSelection, setBusSelection, getStops } from '../actions/index';
+import { makeDropdownOptions } from '../utils/semanticHelpers';
 
 class NewSearch extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      directions: ['Inbound', 'Outbound'],
+    }
+
     const { dispatch } = props;
-    this.bindActionCreators = bindActionCreators({ getBuses, setBusSelection }, dispatch);
+    this.bindActionCreators = bindActionCreators({ getBuses, setDirectionSelection, setBusSelection, getStops }, dispatch);
   }
 
   componentDidMount = () => {
@@ -20,13 +25,16 @@ class NewSearch extends Component {
   }
 
   onBusSelection = (e, { value }) => {
-    const { dispatch } = this.props;
+    const { dispatch, predictionInputs } = this.props;
     dispatch(setBusSelection(value));
+    dispatch(getStops(predictionInputs.direction, value));
   }
 
   render = () => {
-      const { buses, predictionInputs } = this.props;
-      console.log('busSelection is: ', predictionInputs)
+      const { directions } = this.state;
+      const { dispatch, buses, predictionInputs, stopsData } = this.props;
+
+      console.log('stops data: ', stopsData);
 
       return (
       <div>
@@ -40,15 +48,24 @@ class NewSearch extends Component {
           <Form.Dropdown
             fluid
             selection
+            label='Direction'
+            placeholder='Direction'
+            selectOnNavigation={false}
+            options={makeDropdownOptions(directions)}
+            onChange={(e, { value }) => { dispatch(setDirectionSelection(value))}}
+            />
+          <Form.Dropdown
+            fluid
+            selection
             label='Bus Number'
             placeholder='Bus Number'
             selectOnNavigation={false}
             options={buses}
             onChange={this.onBusSelection}
             />
-          <Button
-            type='submit'
-            >Get Predictions!</Button>
+          <Button type='submit'>
+            Get Predictions!
+          </Button>
         </Form>
       </div>
     )
@@ -56,8 +73,8 @@ class NewSearch extends Component {
 }
 
 // all returned will be passed to container props
-function mapStateToProps({ buses, predictionInputs }) {
-  return { buses, predictionInputs };
+function mapStateToProps({ buses, predictionInputs, stopsData }) {
+  return { buses, predictionInputs, stopsData };
 }
 
 // function mapDispatchToProps(dispatch) {
@@ -66,4 +83,3 @@ function mapStateToProps({ buses, predictionInputs }) {
 // }
 
 export default connect(mapStateToProps)(NewSearch);
-
