@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getBuses } from '../actions/index';
+import { getBuses, setBusSelection } from '../actions/index';
 
 import { Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
 
 class NewSearch extends Component {
+  constructor(props) {
+    super(props);
 
-  componentWillMount = () => {
-    const { getBuses } = this.props;
+    const { dispatch } = props;
+    this.bindActionCreators = bindActionCreators({ getBuses, setBusSelection }, dispatch);
+  }
+
+  componentDidMount = () => {
+    const { dispatch } = this.props;
+    dispatch(getBuses());
+  }
+
+  onBusSelection = (e, { value }) => {
+    const { dispatch } = this.props;
+    dispatch(setBusSelection(value));
   }
 
   render = () => {
-      const { buses, onBusSelection } = this.props;
+      const { buses, predictionInputs } = this.props;
+      console.log('busSelection is: ', predictionInputs)
 
       return (
       <div>
         <div><h1>New Search</h1></div>
         <br />
-        <Form onSubmit={() => { this.setState({ })}}>
+        <Form>
           <Form.Input
             label='Name'
             placeholder='Name'
@@ -29,17 +42,9 @@ class NewSearch extends Component {
             selection
             label='Bus Number'
             placeholder='Bus Number'
-            selectOnNavigation='false'
+            selectOnNavigation={false}
             options={buses}
-            onChange={onBusSelection}
-            />
-          <Form.Dropdown
-            fluid
-            selection
-            label='Stop'
-            placeholder='Stop'
-            // options={this.makeSemanticOptions(stops)}
-            // onChange={this.onStopSelection}
+            onChange={this.onBusSelection}
             />
           <Button
             type='submit'
@@ -51,13 +56,14 @@ class NewSearch extends Component {
 }
 
 // all returned will be passed to container props
-function mapStateToProps({ buses }) {
-  return { buses };
+function mapStateToProps({ buses, predictionInputs }) {
+  return { buses, predictionInputs };
 }
 
-function mapDispatchToProps(dispatch) {
-  // passes all actions to reducers
-  return bindActionCreators({ getBuses }, dispatch)
-}
-export default connect(mapStateToProps, mapDispatchToProps)(NewSearch);
+// function mapDispatchToProps(dispatch) {
+//   // passes all actions to reducers
+//   return bindActionCreators({ getBuses, setBusSelection }, dispatch)
+// }
+
+export default connect(mapStateToProps)(NewSearch);
 
