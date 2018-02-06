@@ -1,45 +1,22 @@
 import axios from 'axios';
 
-export function willMount() {
+// failsafe for typo bugs in the future
+// i.e. master store for types used
+export const GET_BUSES = 'GET_BUSES';
+export const UPDATE_PREDICTIONS_INPUTS = 'UPDATE_PREDICTIONS_INPUTS';
+
+export function getBuses() {
+  const request = axios.get('/buses')
+
   return {
-    type: 'WILL_MOUNT',
-    payload: [
-      {
-        'key': 0,
-        'text': 1,
-        'value': 2
-      },
-      {
-        'key': 1,
-        'text': 10,
-        'value': 4
-      }
-    ]
-  }
+    type: GET_BUSES,
+    payload: request
+  };
 }
 
-// export async function willMount() {
-//   console.log('inside willMount action');
-
-//   const makeSemanticOptions = (array) => {
-//     return array.map((elem, i) => {
-//       return {
-//         'key': i,
-//         'text': elem,
-//         'value': elem,
-//       }
-//     })
-//   }
-
-//   // try {
-//     let response = await axios.get('/buses');
-//     console.log('this is semantic')
-//     console.log(makeSemanticOptions(response.data.sort()))
-//     return {
-//       type: 'WILL_MOUNT',
-//       payload: makeSemanticOptions(response.data.sort())
-//     }
-//   // } catch(err) {
-//   //   console.log(err);
-//   // }
-// }
+export function updatePredictionInputs(input) {
+  return {
+    type: UPDATE_PREDICTIONS_INPUTS,
+    payload: input
+  }
+}

@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { willMount } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import { getBuses } from '../actions/index';
+
 import { Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
 
 class NewSearch extends Component {
 
   componentWillMount = () => {
-    this.props.willMount()
+    const { getBuses } = this.props;
   }
 
   render = () => {
-      const { buses } = this.props;
-      console.log('buses after returned from reducer: ', buses);
+      const { buses, onBusSelection } = this.props;
+
       return (
       <div>
         <div><h1>New Search</h1></div>
         <br />
-        <Form>
+        <Form onSubmit={() => { this.setState({ })}}>
           <Form.Input
             label='Name'
             placeholder='Name'
@@ -28,9 +29,20 @@ class NewSearch extends Component {
             selection
             label='Bus Number'
             placeholder='Bus Number'
+            selectOnNavigation='false'
             options={buses}
+            onChange={onBusSelection}
+            />
+          <Form.Dropdown
+            fluid
+            selection
+            label='Stop'
+            placeholder='Stop'
+            // options={this.makeSemanticOptions(stops)}
+            // onChange={this.onStopSelection}
             />
           <Button
+            type='submit'
             >Get Predictions!</Button>
         </Form>
       </div>
@@ -39,16 +51,13 @@ class NewSearch extends Component {
 }
 
 // all returned will be passed to container props
-
-function mapStateToProps(state) {
-  return {
-    buses: state.buses
-  };
+function mapStateToProps({ buses }) {
+  return { buses };
 }
 
 function mapDispatchToProps(dispatch) {
   // passes all actions to reducers
-  return bindActionCreators({ willMount: willMount}, dispatch)
+  return bindActionCreators({ getBuses }, dispatch)
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(NewSearch);
+

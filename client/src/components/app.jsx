@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import SearchPanes from './search_panes'
 import VerticalBar from './vertical_bar'
-import Predictions from '../containers/predictions'
+// import Predictions from '../containers/predictions'
 
 export default class App extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ export default class App extends Component {
           </Grid.Column>
 
           <Grid.Column width={8}>
-            <Predictions />
+
               <Divider />
             <SearchPanes />
           </Grid.Column>

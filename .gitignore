@@ -22,3 +22,4 @@ yarn-error.log*
 ./package-lock.json
 package-lock.json
 client/dist/bundle.js
+client/dist/bundle.js
