@@ -3,9 +3,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
-
-import { getBuses, setDirectionSelection, setBusSelection, getStops, setStopSelection } from '../actions/index';
 import { makeDropdownOptions, makeStopsOptions } from '../utils/semanticHelpers';
+
+import {
+  getBuses,
+  setName,
+  setDirectionSelection,
+  setBusSelection,
+  getStops,
+  setStopSelection,
+  getPredictions
+} from '../actions/index';
 
 class NewSearch extends Component {
   constructor(props) {
@@ -16,12 +24,23 @@ class NewSearch extends Component {
     }
 
     const { dispatch } = props;
-    this.bindActionCreators = bindActionCreators({ getBuses, setDirectionSelection, setBusSelection, getStops, setStopSelection }, dispatch);
+    this.bindActionCreators = bindActionCreators({
+      getBuses,
+      setName,
+      setDirectionSelection,
+      setBusSelection,
+      getStops,
+      setStopSelection,
+      getPredictions
+    }, dispatch);
   }
 
   componentDidMount = () => {
-    const { dispatch } = this.props;
-    dispatch(getBuses());
+    this.props.dispatch(getBuses());
+  }
+
+  onNameChange = (e, { value }) => {
+    this.props.dispatch(setName(value))
   }
 
   onBusSelection = (e, { value }) => {
@@ -31,9 +50,12 @@ class NewSearch extends Component {
   }
 
   onStopSelection = (e, { value }) => {
-    const { dispatch, stopsData } = this.props;
-    dispatch(setStopSelection(value));
-    // dispatch(getPredictions(predictionInputs.direction, value));
+    this.props.dispatch(setStopSelection(value));
+  }
+
+  onGetPredictionsClick = () => {
+    const { dispatch, predictionInputs } = this.props;
+    dispatch(getPredictions(predictionInputs))
   }
 
   render = () => {
@@ -50,6 +72,7 @@ class NewSearch extends Component {
           <Form.Input
             label='Name'
             placeholder='Name'
+            onChange={this.onNameChange}
             />
           <Form.Dropdown
             fluid
@@ -78,7 +101,9 @@ class NewSearch extends Component {
               options={makeStopsOptions(stopsData)}
               onChange={this.onStopSelection}
               /> ) : null }
-          <Button type='submit'>
+          <Button
+            type='submit'
+            onClick={this.onGetPredictionsClick}>
             Get Predictions!
           </Button>
         </Form>

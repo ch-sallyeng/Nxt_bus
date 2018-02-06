@@ -6,10 +6,11 @@ import axios from 'axios';
 
 // failsafe for typo bugs in the future
 // i.e. master store for types used
+export const SET_NAME = 'SET_NAME';
+export const SET_DIRECTION_SELECTION = 'SET_DIRECTION_SELECTION';
 export const GET_BUSES = 'GET_BUSES';
 export const GET_STOPS = 'GET_STOPS';
 export const SET_BUS_SELECTION = 'SET_BUS_SELECTION';
-export const SET_DIRECTION_SELECTION = 'SET_DIRECTION_SELECTION';
 export const SET_STOP_SELECTION = 'SET_STOP_SELECTION';
 
 export const VisibilityFilters = {
@@ -22,7 +23,11 @@ export const VisibilityFilters = {
  * action creators
  */
 
-export setDirectionSelection = (direction) => {
+export function setName(name) {
+  return { type: SET_NAME, name }
+}
+
+export function setDirectionSelection(direction) {
   return {
     type: SET_DIRECTION_SELECTION, direction
   };
@@ -56,6 +61,22 @@ export function getStops(direction, busSelection) {
       direction: direction
     }
   })
+
+  return {
+    type: GET_STOPS,
+    payload: request
+  };
+}
+
+export function getPredictions({ busSelection, busStopId, direction }) {
+  const request = axios.get('/predictions', {
+    params: {
+      busSelection,
+      busStopId,
+      direction,
+    }
+  })
+
 
   return {
     type: GET_STOPS,

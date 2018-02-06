@@ -7,6 +7,16 @@ import {  } from '../actions/index';
 
 class Predictions extends Component {
 
+  renderPredictions = () => {
+    const { predictions } = this.props
+    return predictions.map((prediction, i) => (
+      <Statistic color='orange' size='large' key={i}>
+        <Statistic.Value>{prediction}</Statistic.Value>
+        <Statistic.Label>Minutes</Statistic.Label>
+      </Statistic>
+    ))
+  }
+
   render = () => {
     const { predictions } = this.props
 
@@ -20,12 +30,7 @@ class Predictions extends Component {
 
         <div>
           <Statistic.Group widths='four'>
-            { predictions.length > 0 ? predictions.map((prediction, i) => (
-              <Statistic color='orange' size='large' key={i}>
-                <Statistic.Value>{prediction}</Statistic.Value>
-                <Statistic.Label>Minutes</Statistic.Label>
-              </Statistic>
-            )) : null }
+            { predictions.length > 0 ? this.renderPredictions() : null }
           </Statistic.Group>
         </div>
       </div>
@@ -38,4 +43,4 @@ const mapStateToProps = ({ predictions }) => {
   return { predictions };
 }
 
-export default connect(mapStateToProps)(NewSearch);
+export default connect(mapStateToProps)(Predictions);
