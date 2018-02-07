@@ -114,5 +114,3 @@ const mapStateToProps = ({ buses, predictionInputs, stopsData }) => {
 }
 
 export default connect(mapStateToProps)(NewSearch);
-
-// onClick={this.onGetPredictionsClick}
