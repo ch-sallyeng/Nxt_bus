@@ -4,7 +4,7 @@
 >
 > The app targets users who want next bus arrival times. Simply enter in your bus number, bus stop and direction or pull up past searches with your name for accurate predictions.
 >
-> Design and Development by Sally Eng
+Design and Development by Sally Eng
 
 ![Demo](https://i.imgur.com/Vo1sFcJ.gif)
 
