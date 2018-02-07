@@ -23,21 +23,19 @@ class PastSearch extends Component {
   }
 
   onPastSearchSelection = (e, { value }) => {
-    console.log('inside onPastSearchSelection: ', value)
-    // dispatch(getPredictions(value));
+    const { dispatch } = this.props;
+    dispatch(getPredictions(value));
   }
 
   renderPastSearches = () => {
     const { dispatch, predictionInputs, pastSearches, stopsData } = this.props;
-    console.log('INSIDE PASTSEARCH CONTAINER - passed from store: ', pastSearches)
-    console.log('INSIDE PASTSEARCH CONTAINER - stopsData: ', stopsData)
 
-    return pastSearches.map(({ busstopid, busselection, busstop, direction }, i) => (
-      <List.Item onClick={this.onPastSearchSelection} key={i} value={{ busstopid, busselection, busstop, direction }}>
-        <Label color='orange' size='large'>{busselection}</Label>
+    return pastSearches.map(({ busStop, busStopId, busSelection, direction }, i) => (
+      <List.Item onClick={this.onPastSearchSelection} key={busStopId} value={{ busStop, busStopId, busSelection, direction }}>
+        <Label color='orange' size='large'>{busSelection}</Label>
         <Label color='grey' size='large'>{direction}</Label>
         <Label>@</Label>
-        <Label color='black' size='large'>{stopsData[busstopid]}</Label>
+        <Label color='black' size='large'>{busStop}</Label>
       </List.Item>
     ))
   }
@@ -63,11 +61,10 @@ class PastSearch extends Component {
 
         { pastSearches && pastSearches.length > 0 ? ( <Divider /> ) : null }
 
-        { pastSearches && pastSearches.length ? this.renderPastSearches() : null }
-
         <List animated relaxed>
-
+          { pastSearches && pastSearches.length ? this.renderPastSearches() : null }
         </List>
+
       </div>
     )
   }

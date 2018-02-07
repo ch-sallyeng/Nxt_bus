@@ -49,7 +49,6 @@ class NewSearch extends Component {
   }
 
   onStopSelection = (e, { value }) => {
-    console.log('inside new-search where text is : ', value.busStop, ' and value is: ', value.busStopId)
     this.props.dispatch(setStopSelection(value))
   }
 
@@ -62,10 +61,6 @@ class NewSearch extends Component {
   render = () => {
       const { directions } = this.state;
       const { dispatch, buses, predictionInputs, stopsData } = this.props;
-      if (stopsData) {
-        // console.log('this is semanticOptions: ', makeStopsOptions(stopsData))
-      }
-
 
       return (
       <div>

@@ -42,7 +42,6 @@ export function setBusSelection(busSelection) {
 }
 
 export function setStopSelection({ busStop, busStopId }) {
-  console.log('inside action where busStop is: ', busStop)
   return {
     type: SET_STOP_SELECTION, busStop, busStopId // es6 obj key shorthand
   };
