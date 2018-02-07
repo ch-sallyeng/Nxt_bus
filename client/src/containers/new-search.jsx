@@ -81,7 +81,7 @@ class NewSearch extends Component {
             options={makeDropdownOptions(directions)}
             onChange={this.onDirectionSelection}
             />
-          <Form.Dropdown
+          { buses ? ( <Form.Dropdown
             fluid
             selection
             label='Bus Number'
@@ -89,7 +89,7 @@ class NewSearch extends Component {
             selectOnNavigation={false}
             options={buses}
             onChange={this.onBusSelection}
-            />
+            /> ) : null }
           { stopsData ? ( <Form.Dropdown
               fluid
               selection

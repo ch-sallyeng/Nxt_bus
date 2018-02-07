@@ -33,12 +33,12 @@ storeQuery = (req) => {
         console.log('Error inside query 2: ', err);
       }
 
-      let params = [result[0].id, busStopId, busSelection, busStop, direction];
+      let params = [result[0].id, busStopId, busSelection, direction];
       let queryStr = `
           INSERT INTO queryrecords
-          (user_id, busstopid, busselection, busstop, direction)
+          (user_id, busstopid, busselection, direction)
           VALUES
-          (?, ?, ?, ?, ?)
+          (?, ?, ?, ?)
         `;
 
       db.query(queryStr, params, (err, result) => {
