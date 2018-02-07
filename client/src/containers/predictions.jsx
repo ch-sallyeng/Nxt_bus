@@ -21,7 +21,7 @@ class Predictions extends Component {
 
   render = () => {
     const { predictions, predictionInputs, stopsData } = this.props
-    const { direction, busSelection, busStopId } = predictionInputs
+    const { direction, busSelection, busStopId } = predictionInputs // see if you can refactor
 
     return ( <div>
 
@@ -49,11 +49,8 @@ class Predictions extends Component {
   }
 }
 
-// all returned will be passed to container props
 const mapStateToProps = ({ predictions, predictionInputs, stopsData }) => {
   return { predictions, predictionInputs, stopsData };
 }
 
 export default connect(mapStateToProps)(Predictions);
-
-

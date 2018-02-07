@@ -22,7 +22,7 @@ db.connect(function(err) {
 
 storeQuery = (req) => {
   // insert query into database under username //
-  const { name, busSelection, busStopId, busStop, direction } = req.query;
+  const { name, busStop, busStopId, busSelection, direction } = req.query;
   db.query('INSERT IGNORE INTO users (user) VALUES (?)', name, (err, result) => {
     if (err) {
       console.log('Error inside query 1: ', err);
@@ -33,12 +33,12 @@ storeQuery = (req) => {
         console.log('Error inside query 2: ', err);
       }
 
-      let params = [result[0].id, busStopId, busSelection, direction];
+      let params = [result[0].id, busStop, busStopId, busSelection, direction];
       let queryStr = `
           INSERT INTO queryrecords
-          (user_id, busstopid, busselection, direction)
+          (user_id, busstop, busstopid, busselection, direction)
           VALUES
-          (?, ?, ?, ?)
+          (?, ?, ?, ?, ?)
         `;
 
       db.query(queryStr, params, (err, result) => {

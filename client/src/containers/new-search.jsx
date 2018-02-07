@@ -35,7 +35,7 @@ class NewSearch extends Component {
     }, dispatch);
   }
 
-  onNameChange = (e, { value }) => this.props.dispatch(setName(value));
+  onNameInput = (e, { value }) => this.props.dispatch(setName(value));
 
   onDirectionSelection = (e, { value }) => {
     this.props.dispatch(setDirectionSelection(value));
@@ -48,7 +48,10 @@ class NewSearch extends Component {
     dispatch(getStops(predictionInputs.direction, value));
   }
 
-  onStopSelection = (e, { value }) => this.props.dispatch(setStopSelection(value))
+  onStopSelection = (e, { value }) => {
+    console.log('inside new-search where text is : ', value.busStop, ' and value is: ', value.busStopId)
+    this.props.dispatch(setStopSelection(value))
+  }
 
   onGetPredictionsClick = (e) => {
     e.preventDefault();
@@ -59,9 +62,10 @@ class NewSearch extends Component {
   render = () => {
       const { directions } = this.state;
       const { dispatch, buses, predictionInputs, stopsData } = this.props;
+      if (stopsData) {
+        // console.log('this is semanticOptions: ', makeStopsOptions(stopsData))
+      }
 
-      console.log('prediction inputs: ', predictionInputs);
-      // console.log('predictions are: ', predictions)
 
       return (
       <div>
@@ -71,7 +75,7 @@ class NewSearch extends Component {
           <Form.Input
             label='Name'
             placeholder='Name'
-            onChange={this.onNameChange}
+            onChange={this.onNameInput}
             />
           <Form.Dropdown
             fluid

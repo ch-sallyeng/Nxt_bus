@@ -8,6 +8,10 @@ router.get('/', (req, res) => {
 
   Promise.resolve(db.getQuery(req))
     .then(result => {
+      console.log('back from dbHelper: ', result);
+      return result
+    })
+    .then(result => {
       res.status(200).send(result);
     })
     .catch(err => {

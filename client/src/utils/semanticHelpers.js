@@ -13,7 +13,10 @@ const makeStopsOptions = (stopsData) => {
     return {
       'key': busStopId,
       'text': stopsData[busStopId],
-      'value': busStopId
+      'value': {
+        busStop: stopsData[busStopId],
+        busStopId
+      }
     }
   })
 }

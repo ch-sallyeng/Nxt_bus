@@ -13,6 +13,7 @@ export const GET_STOPS = 'GET_STOPS';
 export const SET_BUS_SELECTION = 'SET_BUS_SELECTION';
 export const SET_STOP_SELECTION = 'SET_STOP_SELECTION';
 export const GET_PREDICTIONS = 'GET_PREDICTIONS';
+export const GET_PAST_SEARCHES = 'GET_PAST_SEARCHES';
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -40,9 +41,10 @@ export function setBusSelection(busSelection) {
   };
 }
 
-export function setStopSelection(busStopId) {
+export function setStopSelection({ busStop, busStopId }) {
+  console.log('inside action where busStop is: ', busStop)
   return {
-    type: SET_STOP_SELECTION, busStopId
+    type: SET_STOP_SELECTION, busStop, busStopId // es6 obj key shorthand
   };
 }
 
@@ -69,20 +71,26 @@ export function getStops(direction, busSelection) {
   };
 }
 
-export function getPredictions({ name, busSelection, busStopId, direction }) {
+export function getPredictions({ name, busSelection, busStop, busStopId, direction }) {
   const request = axios.get('/predictions', {
-    params: {
-      name,
-      busSelection,
-      busStopId,
-      direction,
-    }
+    params: { name, busSelection, busStop, busStopId, direction }
   })
 
   return {
     type: GET_PREDICTIONS,
     payload: request
   };
+}
+
+export function getPastSearches({ name }) {
+  const request = axios.get('/records', {
+    params: { name }
+  })
+
+  return {
+    type: GET_PAST_SEARCHES,
+    payload: request
+  }
 }
 
 //
