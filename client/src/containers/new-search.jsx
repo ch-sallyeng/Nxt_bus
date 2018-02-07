@@ -89,7 +89,7 @@ class NewSearch extends Component {
             selectOnNavigation={false}
             options={buses}
             onChange={this.onBusSelection}
-            /> ) : null }
+            /> ) : ( <Form.Dropdown fluid selection label='Bus Number' placeholder='Bus Number'/> ) }
           { stopsData ? ( <Form.Dropdown
               fluid
               selection
@@ -98,7 +98,7 @@ class NewSearch extends Component {
               selectOnNavigation={false}
               options={makeStopsOptions(stopsData)}
               onChange={this.onStopSelection}
-              /> ) : null }
+              /> ) : ( <Form.Dropdown fluid selection label='Bus Stop' placeholder='Bus Stop'/> ) }
           <Button
             type='submit'
             onClick={this.onGetPredictionsClick}>

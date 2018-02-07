@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux';
 
 import { Input, Form, Label, List, Divider, Icon } from 'semantic-ui-react'
 
-import { setName, getPastSearches, getPredictions } from '../actions/index';
+import { setName, getPastSearches, setDirectionSelection, setBusSelection, setStopSelection, getPredictions } from '../actions/index';
 
 class PastSearch extends Component {
   constructor(props) {
     super(props);
 
     const { dispatch } = props;
-    this.bindActionCreators = bindActionCreators({ setName, getPastSearches, getPredictions }, dispatch);
+    this.bindActionCreators = bindActionCreators({ setName, getPastSearches, setDirectionSelection, setBusSelection, setStopSelection, getPredictions }, dispatch);
   }
 
   onNameInput = (e, { value }) => this.props.dispatch(setName(value));
@@ -24,6 +24,9 @@ class PastSearch extends Component {
 
   onPastSearchSelection = (e, { value }) => {
     const { dispatch } = this.props;
+    dispatch(setDirectionSelection(value.direction));
+    dispatch(setBusSelection(value.busSelection));
+    dispatch(setStopSelection(value));
     dispatch(getPredictions(value));
   }
 

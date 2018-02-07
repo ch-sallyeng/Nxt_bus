@@ -21,7 +21,7 @@ class Predictions extends Component {
 
   render = () => {
     const { predictions, predictionInputs, stopsData } = this.props
-    const { direction, busSelection, busStopId } = predictionInputs // see if you can refactor
+    const { direction, busSelection, busStop, busStopId } = predictionInputs // see if you can refactor
 
     return ( <div>
 
@@ -31,7 +31,7 @@ class Predictions extends Component {
           { busSelection ? ( <Label>{busSelection}</Label> ) : null }
           { direction ? ( <Label>{direction}</Label> ) : null }
           { busStopId ? ( <Label>@</Label> ) : null }
-          { busStopId ? ( <Label>{stopsData[busStopId]}</Label> ) : null }
+          { busStopId ? ( <Label>{busStop}</Label> ) : null }
         </Label.Group>
 
         </div>
