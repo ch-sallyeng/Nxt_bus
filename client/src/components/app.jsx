@@ -30,7 +30,7 @@ export default class App extends Component {
           </Grid.Column>
 
           <Grid.Column width={8}>
-
+            <Predictions />
               <Divider />
             <SearchPanes />
           </Grid.Column>

@@ -6,7 +6,6 @@ const apiHelpers = require('../api_helpers');
 const db = require('../database/index');
 
 router.get('/', (req, res) => {
-  console.log('received in predictions route server: ', req.query)
   const { name } = req.query;
 
   // if it's a new search, save query

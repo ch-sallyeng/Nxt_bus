@@ -35,11 +35,12 @@ class NewSearch extends Component {
     }, dispatch);
   }
 
-  componentDidMount = () => this.props.dispatch(getBuses())
+  onNameChange = (e, { value }) => this.props.dispatch(setName(value));
 
-  onNameChange = (e, { value }) => this.props.dispatch(setName(value))
-
-  onDirectionSelection = (e, { value }) => this.props.dispatch(setDirectionSelection(value))
+  onDirectionSelection = (e, { value }) => {
+    this.props.dispatch(setDirectionSelection(value));
+    this.props.dispatch(getBuses());
+  }
 
   onBusSelection = (e, { value }) => {
     const { dispatch, predictionInputs } = this.props;
@@ -51,7 +52,6 @@ class NewSearch extends Component {
 
   onGetPredictionsClick = (e) => {
     e.preventDefault();
-    console.log('inside getpredictions click');
     const { dispatch, predictionInputs } = this.props;
     dispatch(getPredictions(predictionInputs))
   }
@@ -60,7 +60,8 @@ class NewSearch extends Component {
       const { directions } = this.state;
       const { dispatch, buses, predictionInputs, stopsData } = this.props;
 
-      console.log('returned from: ', predictionInputs);
+      console.log('prediction inputs: ', predictionInputs);
+      // console.log('predictions are: ', predictions)
 
       return (
       <div>

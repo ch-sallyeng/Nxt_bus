@@ -70,7 +70,6 @@ export function getStops(direction, busSelection) {
 }
 
 export function getPredictions({ name, busSelection, busStopId, direction }) {
-  console.log('inside getPredictions action Creator');
   const request = axios.get('/predictions', {
     params: {
       name,
