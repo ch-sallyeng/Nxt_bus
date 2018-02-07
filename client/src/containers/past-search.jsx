@@ -10,11 +10,18 @@ class PastSearch extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      name: '',
+    }
+
     const { dispatch } = props;
     this.bindActionCreators = bindActionCreators({ setName, getPastSearches, setDirectionSelection, setBusSelection, setStopSelection, getPredictions }, dispatch);
   }
 
-  onNameInput = (e, { value }) => this.props.dispatch(setName(value));
+  onNameInput = (e, { value }) => {
+    this.props.dispatch(setName(value));
+    this.setState({ name: value })
+  }
 
   onPastSearch = (e) => {
     e.preventDefault();
@@ -22,7 +29,7 @@ class PastSearch extends Component {
     dispatch(getPastSearches(predictionInputs))
 
     // reset dropdown value
-    dispatch(setName(''))
+    this.setState({ name: '' })
   }
 
   onPastSearchSelection = (e, { value }) => {
@@ -55,12 +62,19 @@ class PastSearch extends Component {
         <br />
         <Form onSubmit={this.onPastSearch}>
           <Form.Group inline>
-            <Form.Input value={predictionInputs.name} placeholder='Enter name...' onChange={this.onNameInput} />
+            <Form.Input value={this.state.name} placeholder='Enter name...' onChange={this.onNameInput} />
             <Form.Button content='Search' type='submit' />
           </Form.Group>
         </Form>
 
         { pastSearches && pastSearches.length > 0 ? ( <Divider /> ) : null }
+
+        { pastSearches && pastSearches.length > 0 ? (
+          <Header.Subheader style={{fontSize: '16px', fontWeight: 1200}}>
+            Welcome back, {predictionInputs.name}!
+            <br/>
+          </Header.Subheader>
+        ) : null }
 
         <List animated relaxed>
           { pastSearches && pastSearches.length ? this.renderPastSearches() : null }
