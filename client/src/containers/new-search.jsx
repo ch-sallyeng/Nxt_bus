@@ -56,27 +56,29 @@ class NewSearch extends Component {
     e.preventDefault();
     const { dispatch, predictionInputs } = this.props;
     dispatch(getPredictions(predictionInputs))
+
   }
 
   render = () => {
       const { directions } = this.state;
       const { dispatch, buses, predictionInputs, stopsData } = this.props;
+      const { name, direction, busSelection, busStop, busStopId } = predictionInputs
 
       return (
       <div>
         <div><h1>New Search</h1></div>
         <br />
-        <Form>
+        <Form onSubmit={this.onGetPredictionsClick}>
           <Form.Input
             label='Name'
-            placeholder='Name'
+            placeholder='Enter name...'
             onChange={this.onNameInput}
             />
           <Form.Dropdown
             fluid
             selection
             label='Direction'
-            placeholder='Direction'
+            placeholder='Select direction...'
             selectOnNavigation={false}
             options={makeDropdownOptions(directions)}
             onChange={this.onDirectionSelection}
@@ -84,26 +86,22 @@ class NewSearch extends Component {
           { buses ? ( <Form.Dropdown
             fluid
             selection
-            label='Bus Number'
-            placeholder='Bus Number'
+            label='Bus'
+            placeholder='Select a bus...'
             selectOnNavigation={false}
             options={buses}
             onChange={this.onBusSelection}
-            /> ) : ( <Form.Dropdown fluid selection label='Bus Number' placeholder='Bus Number'/> ) }
+            /> ) : ( <Form.Dropdown fluid selection label='Bus' placeholder='Select a bus...'/> ) }
           { stopsData ? ( <Form.Dropdown
               fluid
               selection
-              label='Stop'
-              placeholder='Stop'
+              label='Bus Stop'
+              placeholder='Select a bus stop...'
               selectOnNavigation={false}
               options={makeStopsOptions(stopsData)}
               onChange={this.onStopSelection}
-              /> ) : ( <Form.Dropdown fluid selection label='Bus Stop' placeholder='Bus Stop'/> ) }
-          <Button
-            type='submit'
-            onClick={this.onGetPredictionsClick}>
-            Get Predictions!
-          </Button>
+              /> ) : ( <Form.Dropdown fluid selection label='Bus Stop' placeholder='Select a bus stop...'/> ) }
+          <Form.Button type='submit' content='Get Predictions!' />
         </Form>
       </div>
     )
@@ -116,3 +114,5 @@ const mapStateToProps = ({ buses, predictionInputs, stopsData }) => {
 }
 
 export default connect(mapStateToProps)(NewSearch);
+
+// onClick={this.onGetPredictionsClick}

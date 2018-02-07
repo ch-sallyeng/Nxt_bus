@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Input, Form, Label, List, Divider, Icon } from 'semantic-ui-react'
+import { Input, Form, Label, List, Divider, Icon, Header } from 'semantic-ui-react'
 
 import { setName, getPastSearches, setDirectionSelection, setBusSelection, setStopSelection, getPredictions } from '../actions/index';
 
@@ -20,6 +20,9 @@ class PastSearch extends Component {
     e.preventDefault();
     const { dispatch, predictionInputs } = this.props;
     dispatch(getPastSearches(predictionInputs))
+
+    // reset dropdown value
+    dispatch(setName(''))
   }
 
   onPastSearchSelection = (e, { value }) => {
@@ -44,22 +47,17 @@ class PastSearch extends Component {
   }
 
   render = () => {
-    const { pastSearches } = this.props;
+    const { predictionInputs, pastSearches } = this.props;
 
     return (
       <div>
         <div><h1>Past Searches</h1></div>
         <br />
-        <Form>
-          <Form.Input type='text' placeholder='Search...' action>
-          <Form.Input
-            onChange={this.onNameInput}
-          />
-          <Form.Button
-            type='submit'
-            onClick={this.onPastSearch}
-          >Search</Form.Button>
-          </Form.Input>
+        <Form onSubmit={this.onPastSearch}>
+          <Form.Group inline>
+            <Form.Input value={predictionInputs.name} placeholder='Enter name...' onChange={this.onNameInput} />
+            <Form.Button content='Search' type='submit' />
+          </Form.Group>
         </Form>
 
         { pastSearches && pastSearches.length > 0 ? ( <Divider /> ) : null }
@@ -78,4 +76,3 @@ const mapStateToProps = ({ predictionInputs, pastSearches, stopsData }) => {
 }
 
 export default connect(mapStateToProps)(PastSearch);
-

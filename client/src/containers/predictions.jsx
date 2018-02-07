@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Statistic, Label } from 'semantic-ui-react'
+import { Statistic, Label, Header } from 'semantic-ui-react'
 
 class Predictions extends Component {
   constructor(props) {
@@ -12,11 +12,11 @@ class Predictions extends Component {
     const { predictions } = this.props
 
     return predictions.slice(0,3).map((prediction, i) => (
-      <Statistic color='orange' size='large' key={i}>
-        <Statistic.Value>{prediction}</Statistic.Value>
-        <Statistic.Label>Minutes</Statistic.Label>
-      </Statistic>
-    ))
+        <Statistic color='orange' size='large' key={i}>
+          <Statistic.Value>{prediction}</Statistic.Value>
+          <Statistic.Label>Minutes</Statistic.Label>
+        </Statistic>
+      ))
   }
 
   render = () => {
@@ -27,7 +27,7 @@ class Predictions extends Component {
 
         <div>
         <Label.Group size='medium' color='black'>
-          { direction ? ( <h2>Next Bus:</h2> ) : null }
+          { direction ? ( <Header style={{fontSize: '40px', fontWeight: 1000}}>Next Bus</Header> ) : null }
           { busSelection ? ( <Label>{busSelection}</Label> ) : null }
           { direction ? ( <Label>{direction}</Label> ) : null }
           { busStopId ? ( <Label>@</Label> ) : null }
