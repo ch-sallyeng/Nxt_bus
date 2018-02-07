@@ -20,16 +20,16 @@ class PastSearch extends Component {
 
   onNameInput = (e, { value }) => {
     this.props.dispatch(setName(value));
-    this.setState({ name: value })
+    this.setState({ name: value });
   }
 
   onPastSearch = (e) => {
     e.preventDefault();
     const { dispatch, predictionInputs } = this.props;
-    dispatch(getPastSearches(predictionInputs))
+    dispatch(getPastSearches(predictionInputs));
 
     // reset dropdown value
-    this.setState({ name: '' })
+    this.setState({ name: '' });
   }
 
   onPastSearchSelection = (e, { value }) => {
