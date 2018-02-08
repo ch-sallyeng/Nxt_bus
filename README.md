@@ -6,7 +6,7 @@
 >
 Design and Development by Sally Eng
 
-![Demo](https://i.imgur.com/Vo1sFcJ.gif)
+![Demo](https://github.com/sallyyeng/nxt_bus/blob/master/IndolentElatedCoqui-size_restricted.gif)
 
 ## Table of Contents
 
