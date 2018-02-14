@@ -2,7 +2,8 @@
 const Promise = require('bluebird');
 const mysql = require('mysql');
 
-if (process.env.CLEARDB_DATABASE_URL) {
+if (process.env.NODE_ENV === 'production') {
+  console.log('this is process ENV ++++++++', process.env.CLEARDB_DATABASE_URL)
   let db = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
 } else {
   let db = mysql.createConnection({
