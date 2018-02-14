@@ -32,8 +32,9 @@ const serverPort = process.env.PORT || 3002;
 const apiPort = 3001;
 
 app.listen(serverPort, function() {
-  restbus.listen(apiPort, function() {
-    console.log(`nextbus api listening on port ${apiPort}!`);
-  });
   console.log(`app listening on port ${serverPort}!`);
+});
+
+restbus.listen(apiPort, function() {
+  console.log(`nextbus api listening on port ${apiPort}!`);
 });

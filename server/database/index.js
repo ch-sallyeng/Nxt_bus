@@ -3,12 +3,7 @@ const Promise = require('bluebird');
 const mysql = require('mysql');
 
 if (process.env.NODE_ENV === 'production') {
-  var db = mysql.createConnection({
-    host: 'us-cdbr-iron-east-05.cleardb.net',
-    user: 'bc976e0e649d37',
-    password: '86095461',
-    database: 'heroku_6013fa29b027e6f',
-  });
+
 } else {
   var db = mysql.createConnection({
     host: 'localhost',
