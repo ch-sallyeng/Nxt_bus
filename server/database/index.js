@@ -8,6 +8,17 @@ if (process.env.NODE_ENV === 'production') {
     host: process.env.CLEARDB_DATABASE_URL
   });
 
+  db.connect(function(err) {
+    if (err) {
+      console.error(`error connecting:  + ${err.stack}`);
+    }
+
+    db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
+      if (err) throw err;
+      console.log(`CONNECTED TO SQL as id ${db.threadId}`);
+    })
+  });
+
 } else {
   let db = mysql.createConnection({
     host: 'localhost',
@@ -23,8 +34,8 @@ if (process.env.NODE_ENV === 'production') {
 
     db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
       if (err) throw err;
+      console.log(`CONNECTED TO SQL as id ${db.threadId}`);
     })
-    console.log(`CONNECTED TO SQL as id ${db.threadId}`);
   });
 }
 
