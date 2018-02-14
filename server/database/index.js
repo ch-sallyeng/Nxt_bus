@@ -3,21 +3,13 @@ const Promise = require('bluebird');
 const mysql = require('mysql');
 
 if (process.env.NODE_ENV === 'production') {
-  console.log('this is process ENV ++++++++', process.env.CLEARDB_DATABASE_URL)
   let db = mysql.createConnection({
-    host: process.env.CLEARDB_DATABASE_URL
+    host: 'us-cdbr-iron-east-05.cleardb.net',
+    user: 'bc976e0e649d37',
+    password: '86095461',
+    database: 'heroku_6013fa29b027e6f'
   });
 
-  db.connect(function(err) {
-    if (err) {
-      console.error(`error connecting:  + ${err.stack}`);
-    }
-
-    db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
-      if (err) throw err;
-      console.log(`CONNECTED TO SQL as id ${db.threadId}`);
-    })
-  });
 
 } else {
   let db = mysql.createConnection({
@@ -27,17 +19,18 @@ if (process.env.NODE_ENV === 'production') {
     database: 'nextbus'
   });
 
-  db.connect(function(err) {
-    if (err) {
-      console.error(`error connecting:  + ${err.stack}`);
-    }
-
-    db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
-      if (err) throw err;
-      console.log(`CONNECTED TO SQL as id ${db.threadId}`);
-    })
-  });
 }
+
+db.connect(function(err) {
+  if (err) {
+    console.error(`error connecting:  + ${err.stack}`);
+  }
+
+  db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
+    if (err) throw err;
+    console.log(`CONNECTED TO SQL as id ${db.threadId}`);
+  })
+});
 
 db = Promise.promisifyAll(db);
 
