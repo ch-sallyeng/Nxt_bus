@@ -2,12 +2,16 @@
 const Promise = require('bluebird');
 const mysql = require('mysql');
 
-let db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '38ankeny',
-  database: 'nextbus'
-});
+if (process.env.CLEARDB_DATABASE_URL) {
+  let db = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
+} else {
+  let db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '38ankeny',
+    database: 'nextbus'
+  });
+}
 
 db = Promise.promisifyAll(db);
 
