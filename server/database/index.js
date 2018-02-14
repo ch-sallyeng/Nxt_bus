@@ -18,9 +18,11 @@ db = Promise.promisifyAll(db);
 db.connect(function(err) {
   if (err) {
     console.error(`error connecting:  + ${err.stack}`);
-    return;
   }
 
+  db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
+    if (err) throw err;
+  })
   console.log(`CONNECTED TO SQL as id ${db.threadId}`);
 });
 
