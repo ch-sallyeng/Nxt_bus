@@ -18,18 +18,16 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-db.connect();
-console.log(db);
-// db.connect(function(err) {
-//   if (err) {
-//     console.error(`error connecting:  + ${err.stack}`);
-//   }
+db.connect(function(err) {
+  if (err) {
+    console.error(`error connecting:  + ${err.stack}`);
+  }
 
-//   db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
-//     if (err) throw err;
-//     console.log(`CONNECTED TO SQL as id ${db.threadId}`);
-//   })
-// });
+  db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
+    if (err) throw err;
+    console.log(`CONNECTED TO SQL as id ${db.threadId}`);
+  })
+});
 
 db = Promise.promisifyAll(db);
 
