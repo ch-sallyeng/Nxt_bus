@@ -3,34 +3,33 @@ const Promise = require('bluebird');
 const mysql = require('mysql');
 
 if (process.env.NODE_ENV === 'production') {
-  let db = mysql.createConnection({
+  var db = mysql.createConnection({
     host: 'us-cdbr-iron-east-05.cleardb.net',
     user: 'bc976e0e649d37',
     password: '86095461',
     database: 'heroku_6013fa29b027e6f'
   });
-
-
+  console.log('+++++inside env if stmt where db is++++++: ', db);
 } else {
-  let db = mysql.createConnection({
+  var db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '38ankeny',
     database: 'nextbus'
   });
-
 }
 
-db.connect(function(err) {
-  if (err) {
-    console.error(`error connecting:  + ${err.stack}`);
-  }
+db.connect();
+// db.connect(function(err) {
+//   if (err) {
+//     console.error(`error connecting:  + ${err.stack}`);
+//   }
 
-  db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
-    if (err) throw err;
-    console.log(`CONNECTED TO SQL as id ${db.threadId}`);
-  })
-});
+//   db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
+//     if (err) throw err;
+//     console.log(`CONNECTED TO SQL as id ${db.threadId}`);
+//   })
+// });
 
 db = Promise.promisifyAll(db);
 
