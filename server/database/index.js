@@ -2,8 +2,6 @@
 const Promise = require('bluebird');
 const mysql = require('mysql');
 
-
-
 if (process.env.NODE_ENV === 'production') {
   var db = mysql.createConnection({
     host: 'us-cdbr-iron-east-05.cleardb.net',
@@ -24,11 +22,6 @@ db.connect(function(err) {
   if (err) {
     console.error(`error connecting:  + ${err.stack}`);
   }
-
-  // db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
-  //   if (err) throw err;
-  //   console.log(`CONNECTED TO SQL as id ${db.threadId}`);
-  // })
 });
 
 db = Promise.promisifyAll(db);
