@@ -4,7 +4,10 @@ const mysql = require('mysql');
 
 if (process.env.NODE_ENV === 'production') {
   console.log('this is process ENV ++++++++', process.env.CLEARDB_DATABASE_URL)
-  let db = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
+  let db = mysql.createConnection({
+    host: process.env.CLEARDB_DATABASE_URL
+  });
+
 } else {
   let db = mysql.createConnection({
     host: 'localhost',
@@ -12,20 +15,20 @@ if (process.env.NODE_ENV === 'production') {
     password: '38ankeny',
     database: 'nextbus'
   });
+
+  db.connect(function(err) {
+    if (err) {
+      console.error(`error connecting:  + ${err.stack}`);
+    }
+
+    db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
+      if (err) throw err;
+    })
+    console.log(`CONNECTED TO SQL as id ${db.threadId}`);
+  });
 }
 
 db = Promise.promisifyAll(db);
-
-db.connect(function(err) {
-  if (err) {
-    console.error(`error connecting:  + ${err.stack}`);
-  }
-
-  db.query('CREATE DATABASE IF NOT EXISTS nextbus', (err, result) => {
-    if (err) throw err;
-  })
-  console.log(`CONNECTED TO SQL as id ${db.threadId}`);
-});
 
 storeQuery = (req) => {
   // insert query into database under username //
