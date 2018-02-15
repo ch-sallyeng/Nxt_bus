@@ -30,7 +30,7 @@ app.use('/records', require('./routes/records'));
 /******************* END: REQUEST HANDLERS **********************/
 
 const serverPort = process.env.PORT || 3002;
-const apiPort = Number(process.env.PORT) + 1 || 3001;
+const apiPort = 3001;
 
 app.listen(serverPort, function() {
   console.log(`app listening on port ${serverPort}!`);
