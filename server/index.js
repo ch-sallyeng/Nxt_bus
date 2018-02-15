@@ -11,16 +11,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/restbus', restbus.middleware());
 
-
-router.all('/', (req, res, next) => {
-  console.log('Someone made a request!');
-  next();
-});
-
-router.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
 app.use('/buses', require('./routes/buses'));
 app.use('/stops', require('./routes/stops'));
 app.use('/predictions', require('./routes/predictions'));
