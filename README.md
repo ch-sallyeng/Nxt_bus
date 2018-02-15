@@ -6,7 +6,7 @@
 >
 Design and Development by Sally Eng
 
-![Demo](https://i.imgur.com/Vo1sFcJ.gif)
+![Demo](https://github.com/sallyyeng/nxt_bus/blob/master/nxt_bus_demo.gif)
 
 ## Table of Contents
 
